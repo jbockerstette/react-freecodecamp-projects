@@ -91,7 +91,6 @@ class RandomQuoteMachine extends React.Component {
     const q = quotes[quote];
     const color = colors[colorIndex];
     const href = RandomQuoteMachine.getTwitterLink(q);
-    console.log(q);
     return q ? (
       <Grid bgColor={color}>
         <div id="quote-box">
