@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navigation.css';
+import routeConfig from './routeConfig';
 
 export const ButtonLink = ({ className, bgColor, ...rest }) => {
   const cls = ['btn', className].join(' ');
@@ -13,37 +14,16 @@ const Navigation = ({ className }) => {
   const cls = navGridClass.join(' ');
   return (
     <div className={cls}>
-      <NavLink
-        className="nav-item"
-        activeClassName="selected"
-        to="/random-quote-machine"
-      >
-        Random Quote Machine
-      </NavLink>
-      <NavLink
-        className="nav-item"
-        activeClassName="selected"
-        to="/markdown-previewer"
-      >
-        Markdown Previewer
-      </NavLink>
-      <NavLink
-        className="nav-item"
-        activeClassName="selected"
-        to="/drum-machine"
-      >
-        Drum Machine
-      </NavLink>
-      <NavLink className="nav-item" activeClassName="selected" to="/calculator">
-        Calculator
-      </NavLink>
-      <NavLink
-        className="nav-item"
-        activeClassName="selected"
-        to="/pomodoro-clock"
-      >
-        Pomodoro Clock
-      </NavLink>
+      {routeConfig.map(route => (
+        <NavLink
+          key={route.path}
+          className="nav-item"
+          activeClassName="selected"
+          to={route.path}
+        >
+          {route.title}
+        </NavLink>
+      ))}
       <ButtonLink
         className="fa fa-github nav-item"
         href="https://github.com/jbockerstette/react-freecodecamp-projects"

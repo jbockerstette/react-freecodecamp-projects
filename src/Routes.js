@@ -1,10 +1,12 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import RandomQuoteMachine from './RandomQuoteMachine';
+import routeConfig from './routeConfig';
 
 const Routes = ({ className }) => (
   <div className={className}>
-    <Route path="/random-quote-machine" component={RandomQuoteMachine} />
+    {routeConfig.map(route => (
+      <Route key={route.path} path={route.path} component={route.component} />
+    ))}
   </div>
 );
 
