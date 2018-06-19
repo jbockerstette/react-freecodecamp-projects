@@ -1,0 +1,21 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  height: 100%;
+}
+
+.grid #editor {
+  height: 100%;
+  justify-self: stretch;
+  align-self: stretch;
+}
+
+.grid textarea {
+  resize: none;
+}
+
+.grid #preview {
+  border: solid black 1px;
+  justify-self: stretch;
+  align-self: stretch;
+}
