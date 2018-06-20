@@ -19,3 +19,34 @@
   justify-self: stretch;
   align-self: stretch;
 }
+
+.grid #preview table {
+  border-collapse: collapse;
+}
+
+.grid #preview td,
+th {
+  border: 2px solid white;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.grid #preview blockquote {
+  border-left: 3px solid #224b4b;
+  color: #6df3f3;
+  padding-left: 5px;
+  margin-left: 25px;
+}
+
+.grid #preview code {
+  background: white;
+  color: black;
+  padding: 1px 4px 2px 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.grid #preview pre {
+  background: white;
+  padding: 5px 0 5px 5px;
+}

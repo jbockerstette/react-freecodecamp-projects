@@ -5,7 +5,11 @@ import routeConfig from './routeConfig';
 
 export const ButtonLink = ({ className, bgColor, ...rest }) => {
   const cls = ['btn', className].join(' ');
-  return <a className={cls} style={{ background: bgColor }} {...rest} />;
+  return (
+    <a className={cls} style={{ background: bgColor }} {...rest}>
+      {' '}
+    </a>
+  );
 };
 const navGridClass = ['nav-grid'];
 
