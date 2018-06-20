@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   grid-template-rows: 1fr;
+  grid-gap: 0.5rem;
   height: 100%;
 }
 
@@ -15,8 +16,6 @@
 }
 
 .grid #preview {
-  border: solid black 1px;
   justify-self: stretch;
   align-self: stretch;
-  overflow-y: scroll;
 }

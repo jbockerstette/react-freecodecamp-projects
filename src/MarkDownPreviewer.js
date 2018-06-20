@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import marked from 'marked';
-import TextEditor from './TextEditor';
-import Previewer from './Previewer';
 import './MarkDownPreviewer.css';
+
+marked.setOptions({ breaks: true });
+
+const renderer = new marked.Renderer();
+renderer.link = function link(href, title, text) {
+  return `<a target="_blank" href="${href}">${text}</a>`;
+};
 
 // Need to add this so that the test suite freecodecamp uses will not fail the tests.
 window.marked = marked;
@@ -13,6 +18,26 @@ const defaultMD =
 
 const Grid = props => <div className="grid">{props.children}</div>;
 
+const Previewer = props => (
+  <div
+    id="preview"
+    dangerouslySetInnerHTML={{
+      __html: marked(props.text, { renderer })
+    }}
+  />
+);
+
+const TextEditor = props => (
+  <textarea
+    cols="30"
+    rows="25"
+    onChange={props.onChange}
+    name="editor"
+    id="editor"
+    value={props.text}
+  />
+);
+
 class MarkDownPreviewer extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +45,8 @@ class MarkDownPreviewer extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(value) {
+  handleChange(e) {
+    const { value } = e.target;
     this.setState(() => ({
       text: value
     }));
@@ -29,10 +55,7 @@ class MarkDownPreviewer extends React.Component {
   render() {
     return (
       <Grid>
-        <TextEditor
-          defaultText={this.props.defaultText}
-          onChange={this.handleChange}
-        />
+        <TextEditor text={this.state.text} onChange={this.handleChange} />
         <Previewer text={this.state.text} />
       </Grid>
     );
