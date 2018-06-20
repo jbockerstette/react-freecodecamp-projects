@@ -1,11 +1,11 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-template-rows: 50vh 50vh;
   height: 100%;
 }
 
 .grid #editor {
-  height: 100%;
   justify-self: stretch;
   align-self: stretch;
 }
@@ -18,4 +18,5 @@
   border: solid black 1px;
   justify-self: stretch;
   align-self: stretch;
+  overflow-y: scroll;
 }
