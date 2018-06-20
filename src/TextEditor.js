@@ -22,7 +22,7 @@ class TextEditor extends React.Component {
     return (
       <textarea
         cols="30"
-        rows="10"
+        rows="25"
         onChange={this.handleChange}
         name="editor"
         id="editor"
