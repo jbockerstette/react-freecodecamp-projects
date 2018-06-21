@@ -59,23 +59,49 @@ const drumPads = [
   }
 ];
 const Grid = props => <div className="grid">{props.children}</div>;
-
+const Display = props => (
+  <div id="display" className="display">
+    {props.children}
+  </div>
+);
+const Drums = props => (
+  <div id="drums" className="drums">
+    {props.children}
+  </div>
+);
+const DrumMachineWrapper = props => (
+  <div id="drum-machine" className="drum-machine">
+    {props.children}
+  </div>
+);
 class DrumMachine extends React.Component {
   constructor(props) {
     super(props);
     this.handleDrumTap = this.handleDrumTap.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.state = { desc: '' };
+    this.handleKeyPressCBs = [];
+  }
+
+  componentDidMount() {
+    document.addEventListener('keypress', this.handleKeyPress);
   }
 
   handleDrumTap(desc) {
     this.setState({ desc });
   }
 
+  handleKeyPress(e) {
+    const key = e.key.toUpperCase();
+    this.handleKeyPressCBs.forEach(cb => cb(key));
+  }
+
   render() {
+    this.handleKeyPressCBs = [];
     return (
       <Grid>
-        <div id="drum-machine">
-          <div id="drums">
+        <DrumMachineWrapper>
+          <Drums>
             {drumPads.map(drumPad => (
               <DrumPad
                 key={drumPad.id}
@@ -83,11 +109,12 @@ class DrumMachine extends React.Component {
                 desc={drumPad.id}
                 audioSrc={drumPad.url}
                 onClick={this.handleDrumTap}
+                setKeyPressCB={cb => this.handleKeyPressCBs.push(cb)}
               />
             ))}
-          </div>
-          <div id="display">{this.state.desc}</div>
-        </div>
+          </Drums>
+          <Display>{this.state.desc}</Display>
+        </DrumMachineWrapper>
       </Grid>
     );
   }

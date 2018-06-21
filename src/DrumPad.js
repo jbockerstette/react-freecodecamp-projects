@@ -10,10 +10,6 @@ class DrumPad extends Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
-  componentDidMount() {
-    document.addEventListener('keypress', this.handleKeyPress);
-  }
-
   handleClick() {
     this.props.onClick(this.props.desc);
     this.audioRef.current.currentTime = 0;
@@ -21,13 +17,14 @@ class DrumPad extends Component {
   }
 
   handleKeyPress(e) {
-    if (e.key.toUpperCase() === this.props.title.toUpperCase()) {
+    if (e === this.props.title.toUpperCase()) {
       this.handleClick();
     }
   }
 
   render() {
-    const { title, audioSrc, desc } = this.props;
+    const { title, audioSrc, desc, setKeyPressCB } = this.props;
+    setKeyPressCB(this.handleKeyPress);
     return (
       <button className="drum-pad" onClick={this.handleClick} id={desc}>
         {title}
@@ -43,11 +40,13 @@ DrumPad.propTypes = {
   title: PropTypes.string.isRequired,
   audioSrc: PropTypes.string.isRequired,
   desc: PropTypes.string.isRequired,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  setKeyPressCB: PropTypes.func
 };
 
 DrumPad.defaultProps = {
-  onClick: () => {}
+  onClick: () => {},
+  setKeyPressCB: () => {}
 };
 
 export default DrumPad;
