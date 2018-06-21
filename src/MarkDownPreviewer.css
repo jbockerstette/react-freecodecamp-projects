@@ -1,4 +1,4 @@
-.grid {
+.md-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   grid-template-rows: 1fr;
@@ -6,39 +6,39 @@
   height: 100%;
 }
 
-.grid #editor {
+.md-grid #editor {
   justify-self: stretch;
   align-self: stretch;
 }
 
-.grid textarea {
+.md-grid textarea {
   resize: none;
 }
 
-.grid #preview {
+.md-grid #preview {
   justify-self: stretch;
   align-self: stretch;
 }
 
-.grid #preview table {
+.md-grid #preview table {
   border-collapse: collapse;
 }
 
-.grid #preview td,
+.md-grid #preview td,
 th {
   border: 2px solid white;
   padding-left: 5px;
   padding-right: 5px;
 }
 
-.grid #preview blockquote {
+.md-grid #preview blockquote {
   border-left: 3px solid #224b4b;
   color: #6df3f3;
   padding-left: 5px;
   margin-left: 25px;
 }
 
-.grid #preview code {
+.md-grid #preview code {
   background: white;
   color: black;
   padding: 1px 4px 2px 4px;
@@ -46,7 +46,7 @@ th {
   font-weight: bold;
 }
 
-.grid #preview pre {
+.md-grid #preview pre {
   background: white;
   padding: 5px 0 5px 5px;
 }

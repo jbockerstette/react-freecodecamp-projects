@@ -58,12 +58,15 @@ const drumPads = [
     url: 'https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3'
   }
 ];
-const Grid = props => <div className="grid">{props.children}</div>;
-const Display = props => (
-  <div id="display" className="display">
-    {props.children}
-  </div>
-);
+const Grid = props => <div className="dm-grid">{props.children}</div>;
+const Display = props => {
+  const text = props.children || 'Click to tap to try';
+  return (
+    <div id="display" className="display">
+      {text}
+    </div>
+  );
+};
 const Drums = props => (
   <div id="drums" className="drums">
     {props.children}

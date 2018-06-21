@@ -1,4 +1,4 @@
-.grid {
+.dm-grid {
   display: grid;
   border: 1px solid white;
   grid-template-columns: 1fr auto 1fr;
@@ -6,30 +6,42 @@
   height: 100%;
 }
 
-.grid #drum-machine {
-  border: 1px solid white;
+.dm-grid #drum-machine {
+  display: grid;
   grid-column: 2;
   grid-row: 2;
   justify-self: stretch;
   align-self: stretch;
+  grid-gap: 1rem;
 }
 
-.grid #drums {
+.dm-grid #drums {
   display: grid;
   grid-template-columns: repeat(3, auto);
   grid-template-rows: repeat(3, auto);
-  border: 1px solid white;
   grid-gap: 0.5rem;
   padding: 1rem;
+  border: 1px solid white;
+  border-radius: 10px;
   justify-self: stretch;
   align-self: stretch;
 }
 
-.grid #display {
+.dm-grid #display {
+  display: grid;
   border: 1px solid white;
   justify-self: stretch;
   align-self: stretch;
+  justify-content: center;
+  align-content: center;
+  border-radius: 10px;
+  height: 3rem;
 }
 
 .drum-pad {
+  background: lightgreen;
+  height: 5rem;
+  width: 5rem;
+  font-size: large;
+  border-radius: 5px;
 }

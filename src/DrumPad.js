@@ -27,7 +27,7 @@ class DrumPad extends Component {
     setKeyPressCB(this.handleKeyPress);
     return (
       <button className="drum-pad" onClick={this.handleClick} id={desc}>
-        {title}
+        <strong>{title}</strong>
         <audio className="clip" id={title} src={audioSrc} ref={this.audioRef}>
           <track kind="captions" />
         </audio>
