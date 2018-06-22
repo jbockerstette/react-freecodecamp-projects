@@ -39,9 +39,21 @@
 }
 
 .drum-pad {
-  background: lightgreen;
+  background: lightseagreen;
   height: 5rem;
   width: 5rem;
-  font-size: large;
+  font-size: xx-large;
   border-radius: 5px;
+  border: none;
+  transform: scale(1);
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.drum-pad:active,
+.button-active {
+  transform: scale(1.1);
+  background: darkblue;
+  color: white;
 }

@@ -8,25 +8,42 @@ class DrumPad extends Component {
     this.audioRef = React.createRef();
     this.handleClick = this.handleClick.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
+    this.state = { buttonActive: false };
   }
 
   handleClick() {
     this.props.onClick(this.props.desc);
     this.audioRef.current.currentTime = 0;
     this.audioRef.current.play();
+    console.log('clicked');
   }
 
   handleKeyPress(e) {
     if (e === this.props.title.toUpperCase()) {
       this.handleClick();
+      this.setState({ buttonActive: true });
     }
   }
 
+  handleKeyUp() {
+    this.setState({ buttonActive: false });
+  }
+
   render() {
-    const { title, audioSrc, desc, setKeyPressCB } = this.props;
+    const { title, audioSrc, desc, setKeyPressCB, setKeyUpCB } = this.props;
     setKeyPressCB(this.handleKeyPress);
+    setKeyUpCB(this.handleKeyUp);
+    const btnClass = ['drum-pad'];
+    if (this.state.buttonActive) {
+      btnClass.push('button-active');
+    }
     return (
-      <button className="drum-pad" onClick={this.handleClick} id={desc}>
+      <button
+        className={btnClass.join(' ')}
+        onClick={this.handleClick}
+        id={desc}
+      >
         <strong>{title}</strong>
         <audio className="clip" id={title} src={audioSrc} ref={this.audioRef}>
           <track kind="captions" />
@@ -41,12 +58,14 @@ DrumPad.propTypes = {
   audioSrc: PropTypes.string.isRequired,
   desc: PropTypes.string.isRequired,
   onClick: PropTypes.func,
-  setKeyPressCB: PropTypes.func
+  setKeyPressCB: PropTypes.func,
+  setKeyUpCB: PropTypes.func
 };
 
 DrumPad.defaultProps = {
   onClick: () => {},
-  setKeyPressCB: () => {}
+  setKeyPressCB: () => {},
+  setKeyUpCB: () => {}
 };
 
 export default DrumPad;
