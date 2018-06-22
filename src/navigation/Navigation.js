@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navigation.css';
-import routeConfig from './routeConfig';
+import routeConfig from '../routes/routeConfig';
 
 export const ButtonLink = ({ className, bgColor, ...rest }) => {
   const cls = ['btn', className].join(' ');

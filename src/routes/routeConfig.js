@@ -1,8 +1,8 @@
-import RandomQuoteMachine from './RandomQuoteMachine';
-import MarkDownPreviewer from './MarkDownPreviewer';
-import DrumMachine from './DrumMachine';
-import Calculator from './Calculator';
-import PomodoroClock from './PomodoroClock';
+import RandomQuoteMachine from '../random-quote-machine/RandomQuoteMachine';
+import MarkDownPreviewer from '../markdown-previewer/MarkDownPreviewer';
+import DrumMachine from '../drum-machine/DrumMachine';
+import Calculator from '../calculator/Calculator';
+import PomodoroClock from '../pomodoro-clock/PomodoroClock';
 
 const routeConfig = [
   {
