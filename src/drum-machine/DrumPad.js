@@ -16,7 +16,6 @@ class DrumPad extends Component {
     this.props.onClick(this.props.desc);
     this.audioRef.current.currentTime = 0;
     this.audioRef.current.play();
-    console.log('clicked');
   }
 
   handleKeyPress(e) {
