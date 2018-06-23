@@ -4,6 +4,10 @@ import DrumMachine from './DrumMachine';
 
 describe('DrumMachine', () => {
   const simMockEvent = {};
+  const simMockEventCbs = {};
+  const callAll = cbs => args => {
+    cbs.forEach(cb => cb(args));
+  };
   // This will mock the addEventListener and allow me to simulate a specific event. For
   // example:
   /*
@@ -17,7 +21,11 @@ describe('DrumMachine', () => {
     this.handleKeyPress({key:'q'})
   */
   document.addEventListener = jest.fn().mockImplementation((event, cb) => {
-    simMockEvent[event] = cb;
+    // you could have many listeners for the same event so that is why we
+    // need an array of cbs for a single event.
+    simMockEventCbs[event] = simMockEventCbs[event] || [];
+    simMockEventCbs[event].push(cb);
+    simMockEvent[event] = callAll(simMockEventCbs[event]);
   });
   const wrapper = mount(<DrumMachine />);
 
@@ -52,9 +60,5 @@ describe('DrumMachine', () => {
     drum.simulate('click');
     expect(audio.play).toHaveBeenCalled();
     audio.play.mockRestore();
-  });
-  it('should have nine callbacks in each array for keypresses', () => {
-    expect(wrapper.instance().handleKeyPressCBs.length).toEqual(9);
-    expect(wrapper.instance().handleKeyUpCBs.length).toEqual(9);
   });
 });

@@ -81,34 +81,14 @@ class DrumMachine extends React.Component {
   constructor(props) {
     super(props);
     this.handleDrumTap = this.handleDrumTap.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.handleKeyUp = this.handleKeyUp.bind(this);
     this.state = { desc: '' };
-    this.handleKeyPressCBs = [];
-    this.handleKeyUpCBs = [];
-  }
-
-  componentDidMount() {
-    document.addEventListener('keypress', this.handleKeyPress);
-    document.addEventListener('keyup', this.handleKeyUp);
   }
 
   handleDrumTap(desc) {
     this.setState({ desc });
   }
 
-  handleKeyPress(e) {
-    const key = e.key.toUpperCase();
-    this.handleKeyPressCBs.forEach(cb => cb(key));
-  }
-
-  handleKeyUp() {
-    this.handleKeyUpCBs.forEach(cb => cb());
-  }
-
   render() {
-    this.handleKeyPressCBs = [];
-    this.handleKeyUpCBs = [];
     return (
       <Grid>
         <DrumMachineWrapper>
@@ -120,8 +100,6 @@ class DrumMachine extends React.Component {
                 desc={drumPad.id}
                 audioSrc={drumPad.url}
                 onClick={this.handleDrumTap}
-                setKeyPressCB={cb => this.handleKeyPressCBs.push(cb)}
-                setKeyUpCB={cb => this.handleKeyUpCBs.push(cb)}
               />
             ))}
           </Drums>
