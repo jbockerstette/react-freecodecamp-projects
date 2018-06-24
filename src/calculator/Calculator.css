@@ -1,5 +1,107 @@
-.calc-grid {
+.calc-grid-main {
   display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: 1fr auto 1fr;
+  height: 100%;
+}
+
+.calc-grid {
+  padding: 0.5rem;
+  grid-column: 2;
+  grid-row: 2;
+  display: grid;
+  grid-template-areas:
+    'calc-window calc-window calc-window calc-window'
+    '. . . clear'
+    'seven eight nine divide'
+    'four five six multiply'
+    'one two three subtract'
+    'zero decimal equals add';
+  grid-gap: 0.5rem;
   justify-content: center;
   align-content: center;
+  border: 1px solid white;
+}
+
+.calc-btn {
+  background: lightseagreen;
+  height: 5rem;
+  width: 5rem;
+  font-size: xx-large;
+  border-radius: 5px;
+  border: none;
+  transform: scale(1);
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.calc-btn:active {
+  transform: scale(0.95);
+  background: darkblue;
+  color: white;
+}
+
+#calc-window {
+  display: grid;
+  grid-column: 1 / -1;
+  border: 1px solid white;
+  justify-content: end;
+}
+#display {
+}
+#input {
+  justify-self: end;
+}
+
+#zero {
+  grid-area: zero;
+}
+#one {
+  grid-area: one;
+}
+#two {
+  grid-area: two;
+}
+#three {
+  grid-area: three;
+}
+#four {
+  grid-area: four;
+}
+#five {
+  grid-area: five;
+}
+#six {
+  grid-area: six;
+}
+#seven {
+  grid-area: seven;
+}
+#eight {
+  grid-area: eight;
+}
+#nine {
+  grid-area: nine;
+}
+#multiply {
+  grid-area: multiply;
+}
+#divide {
+  grid-area: divide;
+}
+#add {
+  grid-area: add;
+}
+#subtract {
+  grid-area: subtract;
+}
+#decimal {
+  grid-area: decimal;
+}
+#clear {
+  grid-area: clear;
+}
+#equals {
+  grid-area: equals;
 }

@@ -40,7 +40,7 @@ const keys = [
     text: '9'
   },
   {
-    id: 'multiple',
+    id: 'multiply',
     text: 'X'
   },
   {

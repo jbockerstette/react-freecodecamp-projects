@@ -13,20 +13,23 @@ class Calculator extends React.Component {
   }
   render() {
     return (
-      <div className="calc-grid">
-        <div id="calc-window">
-          <div id="input">input</div>
-          <div id="display">results</div>
+      <div className="calc-grid-main">
+        <div className="calc-grid">
+          <div id="calc-window">
+            <div id="input">input</div>
+            <div id="display">results</div>
+          </div>
+          {keys.map(key => (
+            <button
+              className="calc-btn"
+              key={key.id}
+              id={key.id}
+              onClick={() => this.handleClick(key.text)}
+            >
+              {key.text}
+            </button>
+          ))}
         </div>
-        {keys.map(key => (
-          <button
-            key={key.id}
-            id={key.id}
-            onClick={() => this.handleClick(key.text)}
-          >
-            {key.text}
-          </button>
-        ))}
       </div>
     );
   }
