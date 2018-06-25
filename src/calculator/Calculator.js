@@ -9,16 +9,40 @@ class Calculator extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { input: '', output: '0' };
+    this.state = { input: '', output: '0', nextKey: '' };
     this.handleClick = this.handleClick.bind(this);
   }
 
-  getCalc(expression) {
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { input: prevInput, output: prevOutput, nextKey } = prevState;
+    console.log(prevState);
+    let nextInput = prevInput;
+    let nextOutput = prevOutput;
+    if (nextKey === 'ac') {
+      nextInput = '';
+    } else if (Calculator.hasOperator(nextKey)) {
+      if (Calculator.hasOperator(prevInput.substr(-1))) {
+        // replace with new operator.
+        nextInput = prevInput.substr(0, prevInput.length - 1) + nextKey;
+      } else {
+        nextInput = prevInput + nextKey;
+      }
+    } else if (nextKey === '=') {
+      nextOutput = Calculator.getCalc(prevInput);
+      nextInput = `${nextInput}=${nextOutput}`;
+    } else {
+      nextInput = prevInput + nextKey;
+    }
+    return { input: nextInput, output: nextOutput };
+  }
+
+  static getCalc(expression) {
+    // TODO: the calc=
     return '20';
   }
 
   handleClick(key) {
-    if (Number.isInteger(Number(key)) || key === '.') {
+    if (Number.isInteger(Number(key))) {
       this.handleNumber(key);
     } else if (Calculator.hasOperator(key)) {
       this.handleOperator(key);
@@ -26,57 +50,57 @@ class Calculator extends React.Component {
       this.handleClear();
     } else if (key === '=') {
       this.handleEquals();
+    } else if (key === '.') {
+      this.handleDecimal();
     }
   }
 
   handleEquals() {
     const { input } = this.state;
     if (!input.includes('=')) {
-      const result = this.getCalc(input);
-      this.setState(prevState => {
-        const { input: prevInput } = prevState;
-        return { output: result, input: `${prevInput}=${result}` };
-      });
+      this.setState({ nextKey: '=' });
     }
   }
 
   handleClear() {
-    this.setState({ input: '', output: '0' });
+    this.setState({ output: '0', nextKey: 'ac' });
   }
 
   handleOperator(operator) {
-    this.setState(prevState => {
-      let { input: nextInput } = prevState;
-      if (
-        nextInput.length > 0 &&
-        Calculator.hasOperator(nextInput.substr(-1))
-      ) {
-        nextInput = nextInput.substr(0, nextInput.length - 1);
-      }
-      nextInput += operator;
-      return { output: operator, input: nextInput };
-    });
+    this.setState({ output: operator, nextKey: operator });
+  }
+
+  handleDecimal() {
+    if (!this.state.output.includes('.')) {
+      this.setState(({ input: prevInput, output: prevOutput }) => {
+        let nextOutput = prevOutput;
+        let nextKey = '.';
+        if (prevInput.includes('=')) {
+          nextOutput = '0.';
+          nextKey = '0.';
+        } else if (prevOutput === '0' || Calculator.hasOperator(prevOutput)) {
+          nextOutput = '0.';
+          nextKey = '0.';
+        } else {
+          nextOutput += '.';
+        }
+        return { output: nextOutput, nextKey };
+      });
+    }
   }
 
   handleNumber(number) {
-    if (number !== '.' || !this.state.output.includes('.')) {
-      this.setState(prevState => {
-        const { input: prevInput, output: prevOutput } = prevState;
-        let nextOutput = prevOutput;
-        let nextInput = prevInput;
-        if (prevInput.includes('=')) {
-          nextInput = number;
-          nextOutput = number;
-        } else if (prevOutput === '0' || Calculator.hasOperator(prevOutput)) {
-          nextInput += number;
-          nextOutput = number;
-        } else {
-          nextInput += number;
-          nextOutput += number;
-        }
-        return { output: nextOutput, input: nextInput };
-      });
-    }
+    this.setState(({ input: prevInput, output: prevOutput }) => {
+      let nextOutput = prevOutput;
+      if (prevInput.includes('=')) {
+        nextOutput = number;
+      } else if (prevOutput === '0' || Calculator.hasOperator(prevOutput)) {
+        nextOutput = number;
+      } else {
+        nextOutput += number;
+      }
+      return { output: nextOutput, nextKey: number };
+    });
   }
 
   render() {
