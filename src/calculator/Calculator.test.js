@@ -8,11 +8,12 @@ describe('Calculator', () => {
     calc.find('#clear').simulate('click');
   });
   it('should correctly match operators +,-,/,x', () => {
-    expect(Calculator.isOperator('*')).toBe(true);
-    expect(Calculator.isOperator('-')).toBe(true);
-    expect(Calculator.isOperator('+')).toBe(true);
-    expect(Calculator.isOperator('/')).toBe(true);
-    expect(Calculator.isOperator('9')).toBe(false);
+    expect(Calculator.hasOperator('*')).toBe(true);
+    expect(Calculator.hasOperator('-')).toBe(true);
+    expect(Calculator.hasOperator('+')).toBe(true);
+    expect(Calculator.hasOperator('/')).toBe(true);
+    expect(Calculator.hasOperator('9')).toBe(false);
+    expect(Calculator.hasOperator('9.')).toBe(false);
   });
   it('should have an equal sign with id=equals', () => {
     const equals = calc.find('#equals');

@@ -3,8 +3,8 @@ import './Calculator.css';
 import keys from './keys';
 
 class Calculator extends React.Component {
-  static isOperator(key) {
-    return /[+-/*]/i.test(key);
+  static hasOperator(key) {
+    return /[+\-/*]/i.test(key);
   }
 
   constructor(props) {
@@ -13,10 +13,14 @@ class Calculator extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  getCalc(expression) {
+    return '20';
+  }
+
   handleClick(key) {
     if (Number.isInteger(Number(key)) || key === '.') {
       this.handleNumber(key);
-    } else if (Calculator.isOperator(key)) {
+    } else if (Calculator.hasOperator(key)) {
       this.handleOperator(key);
     } else if (key.toLowerCase() === 'ac') {
       this.handleClear();
@@ -26,7 +30,14 @@ class Calculator extends React.Component {
   }
 
   handleEquals() {
-    // TODO: finish equals.
+    const { input } = this.state;
+    if (!input.includes('=')) {
+      const result = this.getCalc(input);
+      this.setState(prevState => {
+        const { input: prevInput } = prevState;
+        return { output: result, input: `${prevInput}=${result}` };
+      });
+    }
   }
 
   handleClear() {
@@ -36,7 +47,10 @@ class Calculator extends React.Component {
   handleOperator(operator) {
     this.setState(prevState => {
       let { input: nextInput } = prevState;
-      if (nextInput.length > 0 && Calculator.isOperator(nextInput.substr(-1))) {
+      if (
+        nextInput.length > 0 &&
+        Calculator.hasOperator(nextInput.substr(-1))
+      ) {
         nextInput = nextInput.substr(0, nextInput.length - 1);
       }
       nextInput += operator;
@@ -47,13 +61,20 @@ class Calculator extends React.Component {
   handleNumber(number) {
     if (number !== '.' || !this.state.output.includes('.')) {
       this.setState(prevState => {
-        const { input, output } = prevState;
-        let nextOutput = output;
-        if (output === '0' || Calculator.isOperator(output)) {
-          nextOutput = '';
+        const { input: prevInput, output: prevOutput } = prevState;
+        let nextOutput = prevOutput;
+        let nextInput = prevInput;
+        if (prevInput.includes('=')) {
+          nextInput = number;
+          nextOutput = number;
+        } else if (prevOutput === '0' || Calculator.hasOperator(prevOutput)) {
+          nextInput += number;
+          nextOutput = number;
+        } else {
+          nextInput += number;
+          nextOutput += number;
         }
-        nextOutput += number;
-        return { output: nextOutput, input: input + number };
+        return { output: nextOutput, input: nextInput };
       });
     }
   }
