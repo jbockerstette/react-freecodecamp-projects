@@ -41,7 +41,7 @@ const keys = [
   },
   {
     id: 'multiply',
-    text: 'X'
+    text: '*'
   },
   {
     id: 'divide',

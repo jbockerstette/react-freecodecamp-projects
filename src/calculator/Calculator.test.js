@@ -7,6 +7,13 @@ describe('Calculator', () => {
   beforeEach(() => {
     calc.find('#clear').simulate('click');
   });
+  it('should correctly match operators +,-,/,x', () => {
+    expect(Calculator.isOperator('*')).toBe(true);
+    expect(Calculator.isOperator('-')).toBe(true);
+    expect(Calculator.isOperator('+')).toBe(true);
+    expect(Calculator.isOperator('/')).toBe(true);
+    expect(Calculator.isOperator('9')).toBe(false);
+  });
   it('should have an equal sign with id=equals', () => {
     const equals = calc.find('#equals');
     expect(equals.length).toEqual(1);
@@ -14,16 +21,16 @@ describe('Calculator', () => {
   });
   it('should contain 10 clickable buttons of 0-9', () => {
     const buttons = calc.find('button');
-    expect(buttons.contains('#zero')).toBe(true);
-    expect(buttons.contains('#one')).toBe(true);
-    expect(buttons.contains('#two')).toBe(true);
-    expect(buttons.contains('#three')).toBe(true);
-    expect(buttons.contains('#four')).toBe(true);
-    expect(buttons.contains('#five')).toBe(true);
-    expect(buttons.contains('#six')).toBe(true);
-    expect(buttons.contains('#seven')).toBe(true);
-    expect(buttons.contains('#eight')).toBe(true);
-    expect(buttons.contains('#nine')).toBe(true);
+    expect(buttons.find('#zero').length).toBe(1);
+    expect(buttons.find('#one').length).toBe(1);
+    expect(buttons.find('#two').length).toBe(1);
+    expect(buttons.find('#three').length).toBe(1);
+    expect(buttons.find('#four').length).toBe(1);
+    expect(buttons.find('#five').length).toBe(1);
+    expect(buttons.find('#six').length).toBe(1);
+    expect(buttons.find('#seven').length).toBe(1);
+    expect(buttons.find('#eight').length).toBe(1);
+    expect(buttons.find('#nine').length).toBe(1);
     expect(buttons.find('#zero').text()).toEqual('0');
     expect(buttons.find('#one').text()).toEqual('1');
     expect(buttons.find('#two').text()).toEqual('2');
@@ -37,10 +44,10 @@ describe('Calculator', () => {
   });
   it('should contain 4 clickable buttons of +, -, /, *', () => {
     const buttons = calc.find('button');
-    expect(buttons.contains('#add')).toBe(true);
-    expect(buttons.contains('#subtract')).toBe(true);
-    expect(buttons.contains('#multiply')).toBe(true);
-    expect(buttons.contains('#divide')).toBe(true);
+    expect(buttons.find('#add').length).toBe(1);
+    expect(buttons.find('#subtract').length).toBe(1);
+    expect(buttons.find('#multiply').length).toBe(1);
+    expect(buttons.find('#divide').length).toBe(1);
     expect(buttons.find('#add').text()).toEqual('+');
     expect(buttons.find('#subtract').text()).toEqual('-');
     expect(buttons.find('#multiply').text()).toEqual('*');
@@ -48,12 +55,12 @@ describe('Calculator', () => {
   });
   it('should contain 1 clickable buttons of .', () => {
     const buttons = calc.find('button');
-    expect(buttons.contains('#decimal')).toBe(true);
+    expect(buttons.find('#decimal').length).toBe(1);
     expect(buttons.find('#decimal').text()).toEqual('.');
   });
   it('should contain 1 clickable buttons of clear', () => {
     const buttons = calc.find('button');
-    expect(buttons.contains('#clear')).toBe(true);
+    expect(buttons.find('#clear').length).toBe(1);
   });
   it('should contain an element to display values', () => {
     expect(calc.find('#display').length).toBe(1);
@@ -69,7 +76,7 @@ describe('Calculator', () => {
     calc.find('#nine').simulate('click');
     calc.find('#add').simulate('click');
     calc.find('#nine').simulate('click');
-    calc.find('#minus').simulate('click');
+    calc.find('#subtract').simulate('click');
     calc.find('#nine').simulate('click');
     calc.find('#divide').simulate('click');
     calc.find('#three').simulate('click');

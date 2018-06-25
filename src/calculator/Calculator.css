@@ -49,6 +49,7 @@
   justify-content: end;
 }
 #display {
+  justify-self: end;
 }
 #input {
   justify-self: end;
