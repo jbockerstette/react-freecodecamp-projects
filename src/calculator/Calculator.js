@@ -2,6 +2,9 @@ import React from 'react';
 import './Calculator.css';
 import keys from './keys';
 
+const RE_MULTIPLY_DIVIDE = /(-?[0-9.]*|Infinity|NaN)([*/])(-?[0-9.]*|Infinity|NaN)/i;
+const RE_ADD_SUBTRACT = /(-?[0-9.]*|Infinity|NaN)([+-])(-?[0-9.]*|Infinity|NaN)/i;
+
 class Calculator extends React.Component {
   static hasOperator(key) {
     return /[+\-/*]/i.test(key);
@@ -15,7 +18,6 @@ class Calculator extends React.Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { input: prevInput, output: prevOutput, nextKey } = prevState;
-    console.log(prevState);
     let nextInput = prevInput;
     let nextOutput = prevOutput;
     if (nextKey === 'ac') {
@@ -24,6 +26,11 @@ class Calculator extends React.Component {
       if (Calculator.hasOperator(prevInput.substr(-1))) {
         // replace with new operator.
         nextInput = prevInput.substr(0, prevInput.length - 1) + nextKey;
+      } else if (prevInput.includes('=')) {
+        // you have a previous result but the user wants to keep calculating using
+        // that result.
+        const equalsPos = prevInput.indexOf('=');
+        nextInput = `${prevInput.substr(equalsPos + 1)}${nextKey}`;
       } else {
         nextInput = prevInput + nextKey;
       }
@@ -37,8 +44,38 @@ class Calculator extends React.Component {
   }
 
   static getCalc(expression) {
-    // TODO: the calc=
-    return '20';
+    let nextExpression = expression;
+    let result = null;
+    do {
+      result = RE_MULTIPLY_DIVIDE.exec(nextExpression);
+      if (!result) {
+        result = RE_ADD_SUBTRACT.exec(nextExpression);
+      }
+      if (result) {
+        const [match, v1, operator, v2] = result;
+        let val = '';
+        switch (operator) {
+          case '*':
+            val = `${Number(v1) * Number(v2)}`;
+            break;
+          case '/':
+            val = `${Number(v1) / Number(v2)}`;
+            break;
+          case '+':
+            val = `${Number(v1) + Number(v2)}`;
+            break;
+          case '-':
+            val = `${Number(v1) - Number(v2)}`;
+            break;
+          default:
+            break;
+        }
+        // Must round it.
+        val = Math.round(val * 10000) / 10000;
+        nextExpression = nextExpression.replace(match, val);
+      }
+    } while (result && result.every(item => item !== ''));
+    return nextExpression;
   }
 
   handleClick(key) {

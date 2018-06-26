@@ -7,6 +7,24 @@ describe('Calculator', () => {
   beforeEach(() => {
     calc.find('#clear').simulate('click');
   });
+  it('should perform the calc correctly', () => {
+    let res = Calculator.getCalc('9*3');
+    expect(res).toBe('27');
+    res = Calculator.getCalc('1*2*3');
+    expect(res).toBe('6');
+    res = Calculator.getCalc('1-1*2*3');
+    expect(res).toBe('-5');
+    res = Calculator.getCalc('1-1*2*3+1/2.5');
+    expect(res).toBe('-4.6');
+    res = Calculator.getCalc('9.9-9.8');
+    expect(res).toBe('0.1');
+    res = Calculator.getCalc('9+3');
+    expect(res).toBe('12');
+    res = Calculator.getCalc('Infinity-9');
+    expect(res).toBe('Infinity');
+    res = Calculator.getCalc('NaN-9');
+    expect(res).toBe('NaN');
+  });
   it('should correctly match operators +,-,/,x', () => {
     expect(Calculator.hasOperator('*')).toBe(true);
     expect(Calculator.hasOperator('-')).toBe(true);
@@ -155,13 +173,14 @@ describe('Calculator', () => {
     calc.find('#nine').simulate('click');
     calc.find('#add').simulate('click');
     calc.find('#divide').simulate('click');
-    calc.find('#subract').simulate('click');
+    calc.find('#subtract').simulate('click');
     calc.find('#multiply').simulate('click');
     calc.find('#three').simulate('click');
     calc.find('#equals').simulate('click');
     expect(calc.find('#display').text()).toBe('29.7');
   });
   it('should use previous results for next calculation if operator is used after equals', () => {
+    console.log(9.9 + 3 - 1); // 11.9
     calc.find('#nine').simulate('click');
     calc.find('#decimal').simulate('click');
     calc.find('#nine').simulate('click');
