@@ -39,30 +39,25 @@ class Calculator extends React.Component {
     }
     return { input: nextInput, output: nextOutput };
   }
-  /*
-  1 + 1 * 2 * 3 ['1', '+', '1', '*', '2', '*', '3']
-                ['1', '+', '2' '*', '3']
 
-  */
   static getCaclReduce(parts, operator) {
-    const numberStack = [];
-    const operationStack = [];
+    const stack = [];
     parts.forEach(part => {
       let val = null;
       const isNumber = !Number.isNaN(Number.parseFloat(part));
       if (isNumber) {
-        numberStack.push(Number(part));
+        stack.push(Number(part));
       } else {
-        operationStack.push(part.trim());
+        stack.push(part.trim());
       }
-      if (
-        isNumber &&
-        operationStack.length &&
-        operator.includes([operationStack.slice(-1)])
-      ) {
-        const v2 = numberStack.pop();
-        const v1 = numberStack.pop();
-        const operation = operationStack.pop();
+      // Get the second to last 2 elements and destructure it. Since I only care about
+      // the first one which is the operator, that is why I only get the first one and
+      // not the number that follows.
+      const [op] = stack.slice(-2);
+      if (isNumber && stack.length && operator.includes(op)) {
+        const v2 = stack.pop();
+        const operation = stack.pop();
+        const v1 = stack.pop();
         switch (operation) {
           case '*':
             val = v1 * v2;
@@ -79,16 +74,10 @@ class Calculator extends React.Component {
           default:
             break;
         }
-        numberStack.push(val);
+        stack.push(val);
       }
     });
-    console.log(numberStack, operationStack);
-    const temp = numberStack.map(num => {
-      const op = operationStack.shift();
-      return `${num}${op ? ` ${op}` : ''}`;
-    });
-    const aaa = temp.join(' ').trim();
-    return aaa;
+    return stack.join(' ').trim();
   }
 
   static getCalc(expression) {
