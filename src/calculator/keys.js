@@ -1,8 +1,8 @@
-export const MULTIPLY = ' * ';
-export const ADD = ' + ';
-export const SUBTRACT = ' - ';
-export const EQUALS = ' = ';
-export const DIVIDE = ' / ';
+export const MULTIPLY = '*';
+export const ADD = '+';
+export const SUBTRACT = '-';
+export const EQUALS = '=';
+export const DIVIDE = '/';
 export const OPERATOR_LEN = MULTIPLY.length;
 const keys = [
   {

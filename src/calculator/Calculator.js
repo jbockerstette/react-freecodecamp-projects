@@ -1,6 +1,6 @@
 import React from 'react';
 import './Calculator.css';
-import keys, { OPERATOR_LEN, EQUALS } from './keys';
+import keys, { EQUALS } from './keys';
 
 const RE_MULTIPLY_DIVIDE = /(-?[0-9.]*|Infinity|NaN)\s?([*/])\s?(-?[0-9.]*|Infinity|NaN)/i;
 const RE_ADD_SUBTRACT = /(-?[0-9.]*|Infinity|NaN)\s?([+-])\s?(-?[0-9.]*|Infinity|NaN)/i;
@@ -25,15 +25,14 @@ class Calculator extends React.Component {
     } else if (Calculator.hasOperator(nextKey)) {
       if (Calculator.hasOperator(prevInput.substr(-2))) {
         // replace with new operator.
-        nextInput =
-          prevInput.substr(0, prevInput.length - OPERATOR_LEN) + nextKey;
+        nextInput = `${prevInput.substr(0, prevInput.length - 3)} ${nextKey} `;
       } else if (prevInput.includes('=')) {
         // you have a previous result but the user wants to keep calculating using
         // that result.
         const equalsPos = prevInput.indexOf(EQUALS);
-        nextInput = `${prevInput.substr(equalsPos + OPERATOR_LEN)}${nextKey}`;
+        nextInput = `${prevInput.substr(equalsPos + 2)} ${nextKey} `;
       } else {
-        nextInput = prevInput + nextKey;
+        nextInput = `${prevInput} ${nextKey} `;
       }
     } else if (nextKey === EQUALS) {
       nextOutput = Calculator.getCalc(prevInput);
@@ -54,7 +53,6 @@ class Calculator extends React.Component {
       }
       if (result) {
         const [match, v1, operator, v2] = result;
-        console.log(result);
         let val = '';
         switch (operator) {
           case '*':

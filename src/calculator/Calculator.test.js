@@ -36,7 +36,7 @@ describe('Calculator', () => {
   it('should have an equal sign with id=equals', () => {
     const equals = calc.find('#equals');
     expect(equals.length).toEqual(1);
-    expect(equals.text()).toEqual(' = ');
+    expect(equals.text()).toEqual('=');
   });
   it('should contain 10 clickable buttons of 0-9', () => {
     const buttons = calc.find('button');
@@ -67,10 +67,10 @@ describe('Calculator', () => {
     expect(buttons.find('#subtract').length).toBe(1);
     expect(buttons.find('#multiply').length).toBe(1);
     expect(buttons.find('#divide').length).toBe(1);
-    expect(buttons.find('#add').text()).toEqual(' + ');
-    expect(buttons.find('#subtract').text()).toEqual(' - ');
-    expect(buttons.find('#multiply').text()).toEqual(' * ');
-    expect(buttons.find('#divide').text()).toEqual(' / ');
+    expect(buttons.find('#add').text()).toEqual('+');
+    expect(buttons.find('#subtract').text()).toEqual('-');
+    expect(buttons.find('#multiply').text()).toEqual('*');
+    expect(buttons.find('#divide').text()).toEqual('/');
   });
   it('should contain 1 clickable buttons of .', () => {
     const buttons = calc.find('button');
