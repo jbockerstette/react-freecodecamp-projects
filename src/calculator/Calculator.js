@@ -2,9 +2,6 @@ import React from 'react';
 import './Calculator.css';
 import keys, { EQUALS } from './keys';
 
-const RE_MULTIPLY_DIVIDE = /(-?[0-9.]*|Infinity|NaN)\s?([*/])\s?(-?[0-9.]*|Infinity|NaN)/i;
-const RE_ADD_SUBTRACT = /(-?[0-9.]*|Infinity|NaN)\s?([+-])\s?(-?[0-9.]*|Infinity|NaN)/i;
-
 class Calculator extends React.Component {
   static hasOperator(key) {
     return /[+\-/*]/i.test(key);
@@ -42,40 +39,66 @@ class Calculator extends React.Component {
     }
     return { input: nextInput, output: nextOutput };
   }
+  /*
+  1 + 1 * 2 * 3 ['1', '+', '1', '*', '2', '*', '3']
+                ['1', '+', '2' '*', '3']
 
-  static getCalc(expression) {
-    let nextExpression = expression;
-    let result = null;
-    do {
-      result = RE_MULTIPLY_DIVIDE.exec(nextExpression);
-      if (!result) {
-        result = RE_ADD_SUBTRACT.exec(nextExpression);
+  */
+  static getCaclReduce(parts, operator) {
+    const numberStack = [];
+    const operationStack = [];
+    parts.forEach(part => {
+      let val = null;
+      const isNumber = !Number.isNaN(Number.parseFloat(part));
+      if (isNumber) {
+        numberStack.push(Number(part));
+      } else {
+        operationStack.push(part.trim());
       }
-      if (result) {
-        const [match, v1, operator, v2] = result;
-        let val = '';
-        switch (operator) {
+      if (
+        isNumber &&
+        operationStack.length &&
+        operator.includes([operationStack.slice(-1)])
+      ) {
+        const v2 = numberStack.pop();
+        const v1 = numberStack.pop();
+        const operation = operationStack.pop();
+        switch (operation) {
           case '*':
-            val = `${Number(v1) * Number(v2)}`;
+            val = v1 * v2;
             break;
           case '/':
-            val = `${Number(v1) / Number(v2)}`;
+            val = v1 / v2;
             break;
           case '+':
-            val = `${Number(v1) + Number(v2)}`;
+            val = v1 + v2;
             break;
           case '-':
-            val = `${Number(v1) - Number(v2)}`;
+            val = v1 - v2;
             break;
           default:
             break;
         }
-        // Must round it.
-        val = Math.round(val * 1000000) / 1000000;
-        nextExpression = nextExpression.replace(match, val);
+        numberStack.push(val);
       }
-    } while (result && result.every(item => item !== ''));
-    return nextExpression;
+    });
+    console.log(numberStack, operationStack);
+    const temp = numberStack.map(num => {
+      const op = operationStack.shift();
+      return `${num}${op ? ` ${op}` : ''}`;
+    });
+    const aaa = temp.join(' ').trim();
+    return aaa;
+  }
+
+  static getCalc(expression) {
+    let nextExpression = expression;
+    let parts = nextExpression.trim().split(' ');
+    nextExpression = Calculator.getCaclReduce(parts, '*/');
+    parts = nextExpression.trim().split(' ');
+    nextExpression = Calculator.getCaclReduce(parts, '+-');
+    const val = Math.round(Number(nextExpression) * 1000000000) / 1000000000;
+    return val.toString();
   }
 
   handleClick(key) {
@@ -127,16 +150,19 @@ class Calculator extends React.Component {
   }
 
   handleNumber(number) {
+    let nextNumber = number;
     this.setState(({ input: prevInput, output: prevOutput }) => {
       let nextOutput = prevOutput;
       if (prevInput.includes('=')) {
-        nextOutput = number;
+        nextOutput = nextNumber;
       } else if (prevOutput === '0' || Calculator.hasOperator(prevOutput)) {
-        nextOutput = number;
+        nextOutput = nextNumber;
+      } else if (nextOutput.length < 23) {
+        nextOutput += nextNumber;
       } else {
-        nextOutput += number;
+        nextNumber = '';
       }
-      return { output: nextOutput, nextKey: number };
+      return { output: nextOutput, nextKey: nextNumber };
     });
   }
 

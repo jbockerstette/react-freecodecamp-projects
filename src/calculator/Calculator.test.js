@@ -8,21 +8,21 @@ describe('Calculator', () => {
     calc.find('#clear').simulate('click');
   });
   it('should perform the calc correctly', () => {
-    let res = Calculator.getCalc('9*3');
-    expect(res).toBe('27');
-    res = Calculator.getCalc('1*2*3');
-    expect(res).toBe('6');
-    res = Calculator.getCalc('1-1*2*3');
-    expect(res).toBe('-5');
-    res = Calculator.getCalc('1-1*2*3+1/2.5');
+    let res = Calculator.getCalc('1 - 1 * 2 * 3 + 1 / 2.5');
     expect(res).toBe('-4.6');
-    res = Calculator.getCalc('9.9-9.8');
+    res = Calculator.getCalc('9 * 3');
+    expect(res).toBe('27');
+    res = Calculator.getCalc('1 * 2 * 3');
+    expect(res).toBe('6');
+    res = Calculator.getCalc('1 - 1 * 2 * 3');
+    expect(res).toBe('-5');
+    res = Calculator.getCalc('9.9 - 9.8');
     expect(res).toBe('0.1');
-    res = Calculator.getCalc('9+3');
+    res = Calculator.getCalc('9 + 3');
     expect(res).toBe('12');
-    res = Calculator.getCalc('Infinity-9');
+    res = Calculator.getCalc('Infinity - 9');
     expect(res).toBe('Infinity');
-    res = Calculator.getCalc('NaN-9');
+    res = Calculator.getCalc('NaN - 9');
     expect(res).toBe('NaN');
   });
   it('should correctly match operators +,-,/,x', () => {

@@ -6,7 +6,7 @@
 }
 
 .calc-grid {
-  padding: 0.5rem;
+  padding: 1rem;
   grid-column: 2;
   grid-row: 2;
   display: grid;
@@ -17,7 +17,7 @@
     'four five six multiply'
     'one two three subtract'
     'zero decimal equals add';
-  grid-gap: 0.5rem;
+  grid-gap: 1rem;
   justify-content: center;
   align-content: center;
   border: 1px solid white;
@@ -27,7 +27,7 @@
 .calc-btn {
   background: lightseagreen;
   height: 5rem;
-  width: 5rem;
+  width: 7rem;
   font-size: xx-large;
   border-radius: 5px;
   border: none;
