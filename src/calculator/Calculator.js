@@ -1,9 +1,9 @@
 import React from 'react';
 import './Calculator.css';
-import keys from './keys';
+import keys, { OPERATOR_LEN, EQUALS } from './keys';
 
-const RE_MULTIPLY_DIVIDE = /(-?[0-9.]*|Infinity|NaN)([*/])(-?[0-9.]*|Infinity|NaN)/i;
-const RE_ADD_SUBTRACT = /(-?[0-9.]*|Infinity|NaN)([+-])(-?[0-9.]*|Infinity|NaN)/i;
+const RE_MULTIPLY_DIVIDE = /(-?[0-9.]*|Infinity|NaN)\s?([*/])\s?(-?[0-9.]*|Infinity|NaN)/i;
+const RE_ADD_SUBTRACT = /(-?[0-9.]*|Infinity|NaN)\s?([+-])\s?(-?[0-9.]*|Infinity|NaN)/i;
 
 class Calculator extends React.Component {
   static hasOperator(key) {
@@ -23,20 +23,21 @@ class Calculator extends React.Component {
     if (nextKey === 'ac') {
       nextInput = '';
     } else if (Calculator.hasOperator(nextKey)) {
-      if (Calculator.hasOperator(prevInput.substr(-1))) {
+      if (Calculator.hasOperator(prevInput.substr(-2))) {
         // replace with new operator.
-        nextInput = prevInput.substr(0, prevInput.length - 1) + nextKey;
+        nextInput =
+          prevInput.substr(0, prevInput.length - OPERATOR_LEN) + nextKey;
       } else if (prevInput.includes('=')) {
         // you have a previous result but the user wants to keep calculating using
         // that result.
-        const equalsPos = prevInput.indexOf('=');
-        nextInput = `${prevInput.substr(equalsPos + 1)}${nextKey}`;
+        const equalsPos = prevInput.indexOf(EQUALS);
+        nextInput = `${prevInput.substr(equalsPos + OPERATOR_LEN)}${nextKey}`;
       } else {
         nextInput = prevInput + nextKey;
       }
-    } else if (nextKey === '=') {
+    } else if (nextKey === EQUALS) {
       nextOutput = Calculator.getCalc(prevInput);
-      nextInput = `${nextInput}=${nextOutput}`;
+      nextInput = `${nextInput} = ${nextOutput}`;
     } else {
       nextInput = prevInput + nextKey;
     }
@@ -53,6 +54,7 @@ class Calculator extends React.Component {
       }
       if (result) {
         const [match, v1, operator, v2] = result;
+        console.log(result);
         let val = '';
         switch (operator) {
           case '*':
@@ -71,7 +73,7 @@ class Calculator extends React.Component {
             break;
         }
         // Must round it.
-        val = Math.round(val * 10000) / 10000;
+        val = Math.round(val * 1000000) / 1000000;
         nextExpression = nextExpression.replace(match, val);
       }
     } while (result && result.every(item => item !== ''));
@@ -85,7 +87,7 @@ class Calculator extends React.Component {
       this.handleOperator(key);
     } else if (key.toLowerCase() === 'ac') {
       this.handleClear();
-    } else if (key === '=') {
+    } else if (key === EQUALS) {
       this.handleEquals();
     } else if (key === '.') {
       this.handleDecimal();
@@ -95,7 +97,7 @@ class Calculator extends React.Component {
   handleEquals() {
     const { input } = this.state;
     if (!input.includes('=')) {
-      this.setState({ nextKey: '=' });
+      this.setState({ nextKey: EQUALS });
     }
   }
 

@@ -21,6 +21,7 @@
   justify-content: center;
   align-content: center;
   border: 1px solid white;
+  border-radius: 5px;
 }
 
 .calc-btn {
@@ -45,13 +46,19 @@
 #calc-window {
   display: grid;
   grid-column: 1 / -1;
+  border-radius: 5px;
   border: 1px solid white;
-  justify-content: end;
+  height: 5.5rem;
 }
 #display {
+  padding: 8px;
   justify-self: end;
+  align-self: end;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: xx-large;
 }
 #input {
+  padding: 8px;
   justify-self: end;
 }
 
@@ -86,23 +93,29 @@
   grid-area: nine;
 }
 #multiply {
+  background: steelblue;
   grid-area: multiply;
 }
 #divide {
+  background: steelblue;
   grid-area: divide;
 }
 #add {
+  background: steelblue;
   grid-area: add;
 }
 #subtract {
   grid-area: subtract;
+  background: steelblue;
 }
 #decimal {
   grid-area: decimal;
 }
 #clear {
   grid-area: clear;
+  background: coral;
 }
 #equals {
   grid-area: equals;
+  background: seagreen;
 }

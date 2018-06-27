@@ -1,3 +1,9 @@
+export const MULTIPLY = ' * ';
+export const ADD = ' + ';
+export const SUBTRACT = ' - ';
+export const EQUALS = ' = ';
+export const DIVIDE = ' / ';
+export const OPERATOR_LEN = MULTIPLY.length;
 const keys = [
   {
     id: 'zero',
@@ -41,19 +47,19 @@ const keys = [
   },
   {
     id: 'multiply',
-    text: '*'
+    text: MULTIPLY
   },
   {
     id: 'divide',
-    text: '/'
+    text: DIVIDE
   },
   {
     id: 'add',
-    text: '+'
+    text: ADD
   },
   {
     id: 'subtract',
-    text: '-'
+    text: SUBTRACT
   },
   {
     id: 'decimal',
@@ -65,7 +71,7 @@ const keys = [
   },
   {
     id: 'equals',
-    text: '='
+    text: EQUALS
   }
 ];
 export default keys;
