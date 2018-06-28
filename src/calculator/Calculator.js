@@ -34,6 +34,8 @@ class Calculator extends React.Component {
     } else if (nextKey === EQUALS) {
       nextOutput = Calculator.getCalc(prevInput);
       nextInput = `${nextInput} = ${nextOutput}`;
+    } else if (prevInput.includes('=')) {
+      nextInput = nextKey;
     } else {
       nextInput = prevInput + nextKey;
     }

@@ -179,6 +179,15 @@ describe('Calculator', () => {
     calc.find('#equals').simulate('click');
     expect(calc.find('#display').text()).toBe('29.7');
   });
+  it('should start a new calc when a number is pressed after equals', () => {
+    calc.find('#nine').simulate('click');
+    calc.find('#add').simulate('click');
+    calc.find('#nine').simulate('click');
+    calc.find('#equals').simulate('click');
+    calc.find('#three').simulate('click');
+    expect(calc.find('#display').text()).toBe('3');
+    expect(calc.find('#input').text()).toBe('3');
+  });
   it('should use previous results for next calculation if operator is used after equals', () => {
     console.log(9.9 + 3 - 1); // 11.9
     calc.find('#nine').simulate('click');
