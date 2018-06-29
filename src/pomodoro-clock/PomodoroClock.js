@@ -13,6 +13,21 @@ const MinusButton = props => (
     <i className="fa fa-minus" />
   </Button>
 );
+const StartButton = props => (
+  <Button {...props}>
+    <i className="fa fa-play" />
+  </Button>
+);
+const PauseButton = props => (
+  <Button {...props}>
+    <i className="fa fa-pause" />
+  </Button>
+);
+const ResetButton = props => (
+  <Button {...props}>
+    <i className="fa fa-undo" />
+  </Button>
+);
 
 const UpDownControl = ({
   onClickUp,
@@ -32,43 +47,129 @@ const UpDownControl = ({
 class PomodoroClock extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { sessionMinutes: 25, breakMinutes: 5 };
+    this.state = {
+      sessionMinutes: 25,
+      breakMinutes: 5,
+      secondsLeft: 25 * 60,
+      started: false,
+      sessionActive: true
+    };
+    this.toggleStart = this.toggleStart.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+    this.handleTimerTick = this.handleTimerTick.bind(this);
   }
 
-  handleIncDec = (inc, min, max, propertyName) => () => {
-    this.setState(({ [propertyName]: prev }) => {
-      let next = prev + inc;
-      if (next < min) {
-        next = min;
-      } else if (next > max) {
-        next = max;
+  static getMinutesLeft(seconds) {
+    return Number.parseInt(seconds / 60, 10).toString();
+  }
+
+  static getSecondsLeft(seconds) {
+    const sec = seconds % 60;
+    // always return two digits.
+    return `0${sec}`.slice(-2);
+  }
+
+  handleUpdateSessionMinutes = inc => () => {
+    this.setState(({ sessionMinutes: prev, started }) => {
+      let nextState = {};
+      let next = prev;
+      if (!started) {
+        next = prev + inc;
+        if (next < 1) {
+          next = 1;
+        } else if (next > 60) {
+          next = 60;
+        }
+        nextState = { sessionMinutes: next, secondsLeft: next * 60 };
       }
-      return { [propertyName]: next };
+      return nextState;
     });
   };
 
+  handleUpdateBreakMinutes = inc => () => {
+    this.setState(({ breakMinutes: prev, started }) => {
+      let nextState = {};
+      let next = prev;
+      if (!started) {
+        next = prev + inc;
+        if (next < 1) {
+          next = 1;
+        } else if (next > 60) {
+          next = 60;
+        }
+        nextState = { breakMinutes: next };
+      }
+      return nextState;
+    });
+  };
+
+  handleTimerTick() {
+    this.setState(({ secondsLeft: prevTimeLeft }) => ({
+      secondsLeft: prevTimeLeft - 1
+    }));
+  }
+
+  toggleStart() {
+    this.setState(({ started }) => {
+      if (!started) {
+        this.timerId = setInterval(this.handleTimerTick, 1000);
+      } else {
+        clearInterval(this.timerId);
+      }
+      return { started: !started };
+    });
+  }
+
+  handleReset() {
+    clearInterval(this.timerId);
+    this.setState(() => ({
+      started: false,
+      sessionActive: true,
+      secondsLeft: 25 * 60,
+      sessionMinutes: 25,
+      breakMinutes: 5
+    }));
+  }
+
   render() {
-    const { sessionMinutes, breakMinutes } = this.state;
+    const {
+      sessionMinutes,
+      breakMinutes,
+      secondsLeft,
+      started,
+      sessionActive
+    } = this.state;
+    const timeLeft = `${PomodoroClock.getMinutesLeft(
+      secondsLeft
+    )}:${PomodoroClock.getSecondsLeft(secondsLeft)}`;
     return (
       <div>
-        <div>Session</div>
+        <div id="session-label">Session Length</div>
         <UpDownControl
           btnDownId="session-decrement"
-          onClickDown={this.handleIncDec(-1, 1, 60, 'sessionMinutes')}
+          onClickDown={this.handleUpdateSessionMinutes(-1)}
           btnUpId="session-increment"
-          onClickUp={this.handleIncDec(1, 1, 60, 'sessionMinutes')}
+          onClickUp={this.handleUpdateSessionMinutes(1)}
           valueId="session-length"
           value={sessionMinutes}
         />
-        <div>Break</div>
+        <div id="break-label">Break Length</div>
         <UpDownControl
           btnDownId="break-decrement"
-          onClickDown={this.handleIncDec(-1, 1, 60, 'breakMinutes')}
+          onClickDown={this.handleUpdateBreakMinutes(-1)}
           btnUpId="break-increment"
-          onClickUp={this.handleIncDec(1, 1, 60, 'breakMinutes')}
+          onClickUp={this.handleUpdateBreakMinutes(1)}
           valueId="break-length"
           value={breakMinutes}
         />
+        <div id="timer-label">{sessionActive ? 'Session' : 'Break'}</div>
+        <div id="time-left">{timeLeft}</div>
+        {started ? (
+          <PauseButton onClick={this.toggleStart} btnId="start_stop" />
+        ) : (
+          <StartButton onClick={this.toggleStart} btnId="start_stop" />
+        )}
+        <ResetButton onClick={this.handleReset} btnId="reset" />
       </div>
     );
   }

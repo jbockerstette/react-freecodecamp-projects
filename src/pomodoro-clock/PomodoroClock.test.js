@@ -63,24 +63,28 @@ describe('PomodoroClock', () => {
     expect(clock.find('#time-left').text()).toBe('25:00');
   });
   it('should decrement when click element id=break-decrement, the value within id="break-length" decrements by a value of 1', () => {
-    const val = Number(clock.find('#break-length').text());
+    let val = Number(clock.find('#break-length').text());
+    val -= 1;
     clock.find('#break-decrement').simulate('click');
-    expect(clock.find('#break-length').text()).toBe(val - 1);
+    expect(clock.find('#break-length').text()).toBe(val.toString());
   });
   it('should increment when click element id=break-increment, the value within id="break-length" decrements by a value of 1', () => {
-    const val = Number(clock.find('#break-length').text());
+    let val = Number(clock.find('#break-length').text());
+    val += 1;
     clock.find('#break-increment').simulate('click');
-    expect(clock.find('#break-length').text()).toBe(val + 1);
+    expect(clock.find('#break-length').text()).toBe(val.toString());
   });
   it('should decrement when click element id=session-decrement, the value within id="session-length" decrements by a value of 1', () => {
-    const val = Number(clock.find('#session-length').text());
+    let val = Number(clock.find('#session-length').text());
+    val -= 1;
     clock.find('#session-decrement').simulate('click');
-    expect(clock.find('#session-length').text()).toBe(val - 1);
+    expect(clock.find('#session-length').text()).toBe(val.toString());
   });
   it('should increment when click element id=session-increment, the value within id="session-length" decrements by a value of 1', () => {
-    const val = Number(clock.find('#session-length').text());
+    let val = Number(clock.find('#session-length').text());
+    val += 1;
     clock.find('#session-increment').simulate('click');
-    expect(clock.find('#session-length').text()).toBe(val + 1);
+    expect(clock.find('#session-length').text()).toBe(val.toString());
   });
   it('should not be able to set a session or break length <= 0', () => {
     const brk = Number(clock.find('#break-length').text());
