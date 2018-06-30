@@ -5,27 +5,27 @@ const Button = ({ btnId, ...rest }) => <button id={btnId} {...rest} />;
 
 const PlusButton = props => (
   <Button {...props}>
-    <i className="fa fa-plus" />
+    <i className="fa fa-plus fa-2x" />
   </Button>
 );
 const MinusButton = props => (
   <Button {...props}>
-    <i className="fa fa-minus" />
+    <i className="fa fa-minus fa-2x" />
   </Button>
 );
 const StartButton = props => (
   <Button {...props}>
-    <i className="fa fa-play" />
+    <i className="fa fa-play fa-2x" />
   </Button>
 );
 const PauseButton = props => (
   <Button {...props}>
-    <i className="fa fa-pause" />
+    <i className="fa fa-pause fa-2x" />
   </Button>
 );
 const ResetButton = props => (
   <Button {...props}>
-    <i className="fa fa-undo" />
+    <i className="fa fa-undo fa-2x" />
   </Button>
 );
 
@@ -45,6 +45,10 @@ const UpDownControl = ({
 );
 
 class PomodoroClock extends React.Component {
+  static toTwoDigits(num) {
+    return `0${num}`.slice(-2);
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -57,16 +61,18 @@ class PomodoroClock extends React.Component {
     this.toggleStart = this.toggleStart.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.handleTimerTick = this.handleTimerTick.bind(this);
+    this.audioRef = React.createRef();
   }
 
   static getMinutesLeft(seconds) {
-    return Number.parseInt(seconds / 60, 10).toString();
+    const num = Number.parseInt(seconds / 60, 10).toString();
+    return PomodoroClock.toTwoDigits(num);
   }
 
   static getSecondsLeft(seconds) {
     const sec = seconds % 60;
     // always return two digits.
-    return `0${sec}`.slice(-2);
+    return PomodoroClock.toTwoDigits(sec);
   }
 
   handleUpdateSessionMinutes = inc => () => {
@@ -104,9 +110,30 @@ class PomodoroClock extends React.Component {
   };
 
   handleTimerTick() {
-    this.setState(({ secondsLeft: prevTimeLeft }) => ({
-      secondsLeft: prevTimeLeft - 1
-    }));
+    this.setState(
+      ({
+        secondsLeft: prevTimeLeft,
+        sessionActive,
+        sessionMinutes,
+        breakMinutes
+      }) => {
+        let nextSessionActive = sessionActive;
+        let nextSecondsLeft = prevTimeLeft - 1;
+        if (prevTimeLeft === 0) {
+          this.audioRef.current.play();
+          nextSessionActive = !sessionActive;
+          if (nextSessionActive) {
+            nextSecondsLeft = sessionMinutes * 60;
+          } else {
+            nextSecondsLeft = breakMinutes * 60;
+          }
+        }
+        return {
+          secondsLeft: nextSecondsLeft,
+          sessionActive: nextSessionActive
+        };
+      }
+    );
   }
 
   toggleStart() {
@@ -122,6 +149,8 @@ class PomodoroClock extends React.Component {
 
   handleReset() {
     clearInterval(this.timerId);
+    this.audioRef.current.pause();
+    this.audioRef.current.currentTime = 0;
     this.setState(() => ({
       started: false,
       sessionActive: true,
@@ -170,6 +199,14 @@ class PomodoroClock extends React.Component {
           <StartButton onClick={this.toggleStart} btnId="start_stop" />
         )}
         <ResetButton onClick={this.handleReset} btnId="reset" />
+        <audio
+          src="https://goo.gl/65cBl1"
+          id="beep"
+          preload="auto"
+          ref={this.audioRef}
+        >
+          <track kind="captions" />
+        </audio>
       </div>
     );
   }

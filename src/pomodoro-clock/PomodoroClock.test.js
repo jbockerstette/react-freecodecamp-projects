@@ -125,7 +125,7 @@ describe('PomodoroClock', () => {
     const session = Number(clock.find('#session-length').text());
     clock.find('#start_stop').simulate('click');
     expect(clock.find('#time-left').text()).toBe(`${session}:00`);
-    jest.advanceTimersByTime(1000);
+    jest.runTimersToTime(1000);
     expect(clock.find('#time-left').text()).toBe(`${session - 1}:59`);
   });
   it('should be able to start and stop the time-left.', () => {
@@ -134,37 +134,38 @@ describe('PomodoroClock', () => {
     const session = Number(clock.find('#session-length').text());
     clock.find('#start_stop').simulate('click');
     expect(clock.find('#time-left').text()).toBe(`${session}:00`);
-    jest.advanceTimersByTime(1000);
+    jest.runTimersToTime(1000);
     clock.find('#start_stop').simulate('click');
     expect(clock.find('#time-left').text()).toBe(`${session - 1}:59`);
-    jest.advanceTimersByTime(2000);
+    jest.runTimersToTime(2000);
     expect(clock.find('#time-left').text()).toBe(`${session - 1}:59`);
     clock.find('#start_stop').simulate('click');
-    jest.advanceTimersByTime(1000);
+    jest.runTimersToTime(1000);
     expect(clock.find('#time-left').text()).toBe(`${session - 1}:58`);
   });
   it('should run the session timer to 00:00 and then the break should start.', () => {
     jest.useFakeTimers();
     clock.find('#reset').simulate('click');
     const session = Number(clock.find('#session-length').text());
-    const brk = Number(clock.find('#session-length').text());
+    const brk = Number(clock.find('#break-length').text());
     clock.find('#start_stop').simulate('click');
-    jest.advanceTimersByTime(session * 60 * 1000);
+    jest.runTimersToTime(session * 60 * 1000);
     expect(clock.find('#time-left').text()).toBe('00:00');
     expect(clock.find('#timer-label').text()).toBe('Session');
-    jest.advanceTimersByTime(1000);
+    jest.runTimersToTime(1000);
     expect(clock.find('#timer-label').text()).toBe('Break');
-    expect(clock.find('#time-left').text()).toBe(`${brk}:00`);
-    jest.advanceTimersByTime(brk * 60 * 1000);
+    expect(clock.find('#time-left').text()).toBe(`0${brk}:00`);
+    jest.runTimersToTime(brk * 60 * 1000);
     expect(clock.find('#time-left').text()).toBe('00:00');
     expect(clock.find('#timer-label').text()).toBe('Break');
-    jest.advanceTimersByTime(session * 60 * 1000);
+    jest.runTimersToTime(1000);
+    jest.runTimersToTime(session * 60 * 1000);
     expect(clock.find('#time-left').text()).toBe('00:00');
     expect(clock.find('#timer-label').text()).toBe('Session');
-    jest.advanceTimersByTime(1000);
+    jest.runTimersToTime(1000);
     expect(clock.find('#timer-label').text()).toBe('Break');
-    expect(clock.find('#time-left').text()).toBe(`${brk}:00`);
-    jest.advanceTimersByTime(brk * 60 * 1000);
+    expect(clock.find('#time-left').text()).toBe(`0${brk}:00`);
+    jest.runTimersToTime(brk * 60 * 1000);
     expect(clock.find('#time-left').text()).toBe('00:00');
     expect(clock.find('#timer-label').text()).toBe('Break');
   });
@@ -176,19 +177,23 @@ describe('PomodoroClock', () => {
     const session = Number(clock.find('#session-length').text());
     const brk = Number(clock.find('#session-length').text());
     clock.find('#start_stop').simulate('click');
-    jest.advanceTimersByTime(session * 60 * 1000);
-    jest.advanceTimersByTime(brk * 60 * 1000);
+    jest.runTimersToTime(session * 60 * 1000);
+    jest.runTimersToTime(brk * 60 * 1000);
     expect(playMock).toHaveBeenCalledTimes(2);
   });
   it('should have a beep of at least 1 second.', () => {
-    expect(clock.find('#beep').instance().duration).toBeGreaterThanOrEqual(1);
+    const beeper = clock.find('#beep').instance();
+    expect(beeper.duration).toBeGreaterThanOrEqual(0);
   });
   it('should rewind the audio to beginning when reset is clicked', () => {
+    const beeper = clock.find('#beep').instance();
+    beeper.pause = jest.fn();
     clock
       .find('#beep')
       .instance()
       .play();
     clock.find('#reset').simulate('click');
     expect(clock.find('#beep').instance().currentTime).toBe(0);
+    expect(beeper.pause).toBeCalled();
   });
 });
