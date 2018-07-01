@@ -5,12 +5,12 @@ const Button = ({ btnId, ...rest }) => <button id={btnId} {...rest} />;
 
 const PlusButton = props => (
   <Button {...props}>
-    <i className="fa fa-plus fa-2x" />
+    <i className="fa fa-plus" />
   </Button>
 );
 const MinusButton = props => (
   <Button {...props}>
-    <i className="fa fa-minus fa-2x" />
+    <i className="fa fa-minus" />
   </Button>
 );
 const StartButton = props => (
@@ -37,7 +37,7 @@ const UpDownControl = ({
   btnDownId,
   value
 }) => (
-  <div>
+  <div className="pc-up-down-control">
     <PlusButton onClick={onClickUp} btnId={btnUpId} />
     <span id={valueId}>{value}</span>
     <MinusButton onClick={onClickDown} btnId={btnDownId} />
@@ -174,7 +174,7 @@ class PomodoroClock extends React.Component {
     return (
       <div className="pc-grid-main">
         <div className="pc-title">Pomodoro Clock</div>
-        <div className="pc-control-session-time">
+        <div>
           <div id="session-label">Session Length</div>
           <UpDownControl
             btnDownId="session-decrement"
@@ -185,7 +185,7 @@ class PomodoroClock extends React.Component {
             value={sessionMinutes}
           />
         </div>
-        <div className="pc-control-break-time">
+        <div>
           <div id="break-label">Break Length</div>
           <UpDownControl
             btnDownId="break-decrement"
@@ -200,14 +200,12 @@ class PomodoroClock extends React.Component {
           <div id="timer-label">{sessionActive ? 'Session' : 'Break'}</div>
           <div id="time-left">{timeLeft}</div>
         </div>
-        <div className="pc-start_stop">
-          {started ? (
-            <PauseButton onClick={this.toggleStart} btnId="start_stop" />
-          ) : (
-            <StartButton onClick={this.toggleStart} btnId="start_stop" />
-          )}
-          <ResetButton onClick={this.handleReset} btnId="reset" />
-        </div>
+        {started ? (
+          <PauseButton onClick={this.toggleStart} btnId="start_stop" />
+        ) : (
+          <StartButton onClick={this.toggleStart} btnId="start_stop" />
+        )}
+        <ResetButton onClick={this.handleReset} btnId="reset" />
         <audio
           src="https://goo.gl/65cBl1"
           id="beep"

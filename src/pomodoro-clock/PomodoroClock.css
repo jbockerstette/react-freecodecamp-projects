@@ -1,41 +1,41 @@
 .pc-grid-main {
   display: grid;
-  grid-template-columns: auto auto auto auto;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  height: 100%;
-  align-content: center;
-  justify-content: center;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
   text-align: center;
-}
-.pc-title {
-  grid-column: 1 / -1;
-  align-self: center;
-  justify-self: center;
+  grid-gap: 2rem;
+  background: tomato;
+  height: 100%;
+  padding: 5rem;
 }
 
-.pc-control-session-time {
-  grid-column: 1 / span 2;
-  align-self: center;
-  justify-self: center;
-}
-.pc-control-break-time {
-  grid-column: 3 / span 2;
-  align-self: center;
-  justify-self: center;
+.pc-title {
+  grid-column: 1 / -1;
+  font-size: 2rem;
 }
 
 .pc-time {
   grid-column: 1 / -1;
-  justify-self: center;
-  align-self: center;
-}
-.pc-start_stop {
-  grid-column: 1 / -1;
-  justify-self: center;
-  align-self: center;
+  border: 1px solid white;
+  border-radius: 1rem;
+  padding: 1rem;
+  min-width: 30rem;
 }
 
-#session-label {
+#timer-label {
+  font-size: 2rem;
+}
+
+#time-left {
+  font-size: 10rem;
+}
+
+#start_stop {
+  justify-self: right;
+}
+#reset {
+  justify-self: left;
 }
 .pc-btn {
   color: white;
@@ -50,6 +50,20 @@
   cursor: pointer;
 }
 
-.pc-btn:active {
-  transform: scale(0.95);
+#session-label,
+#break-label,
+#session-length,
+#break-length {
+  font-size: 1.5rem;
+  padding: 0.5rem;
+}
+
+#session-increment,
+#break-increment,
+#session-decrement,
+#break-decrement {
+  color: lightgray;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
 }
