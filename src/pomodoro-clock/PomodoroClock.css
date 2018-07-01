@@ -1,0 +1,55 @@
+.pc-grid-main {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  height: 100%;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+}
+.pc-title {
+  grid-column: 1 / -1;
+  align-self: center;
+  justify-self: center;
+}
+
+.pc-control-session-time {
+  grid-column: 1 / span 2;
+  align-self: center;
+  justify-self: center;
+}
+.pc-control-break-time {
+  grid-column: 3 / span 2;
+  align-self: center;
+  justify-self: center;
+}
+
+.pc-time {
+  grid-column: 1 / -1;
+  justify-self: center;
+  align-self: center;
+}
+.pc-start_stop {
+  grid-column: 1 / -1;
+  justify-self: center;
+  align-self: center;
+}
+
+#session-label {
+}
+.pc-btn {
+  color: white;
+  border-radius: 50%;
+  height: 4rem;
+  width: 4rem;
+  background: transparent;
+  border: none;
+  transform: scale(1);
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.pc-btn:active {
+  transform: scale(0.95);
+}

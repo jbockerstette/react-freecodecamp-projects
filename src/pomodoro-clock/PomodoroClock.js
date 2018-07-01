@@ -14,17 +14,17 @@ const MinusButton = props => (
   </Button>
 );
 const StartButton = props => (
-  <Button {...props}>
+  <Button {...props} className="pc-btn">
     <i className="fa fa-play fa-2x" />
   </Button>
 );
 const PauseButton = props => (
-  <Button {...props}>
+  <Button {...props} className="pc-btn">
     <i className="fa fa-pause fa-2x" />
   </Button>
 );
 const ResetButton = props => (
-  <Button {...props}>
+  <Button {...props} className="pc-btn">
     <i className="fa fa-undo fa-2x" />
   </Button>
 );
@@ -172,33 +172,42 @@ class PomodoroClock extends React.Component {
       secondsLeft
     )}:${PomodoroClock.getSecondsLeft(secondsLeft)}`;
     return (
-      <div>
-        <div id="session-label">Session Length</div>
-        <UpDownControl
-          btnDownId="session-decrement"
-          onClickDown={this.handleUpdateSessionMinutes(-1)}
-          btnUpId="session-increment"
-          onClickUp={this.handleUpdateSessionMinutes(1)}
-          valueId="session-length"
-          value={sessionMinutes}
-        />
-        <div id="break-label">Break Length</div>
-        <UpDownControl
-          btnDownId="break-decrement"
-          onClickDown={this.handleUpdateBreakMinutes(-1)}
-          btnUpId="break-increment"
-          onClickUp={this.handleUpdateBreakMinutes(1)}
-          valueId="break-length"
-          value={breakMinutes}
-        />
-        <div id="timer-label">{sessionActive ? 'Session' : 'Break'}</div>
-        <div id="time-left">{timeLeft}</div>
-        {started ? (
-          <PauseButton onClick={this.toggleStart} btnId="start_stop" />
-        ) : (
-          <StartButton onClick={this.toggleStart} btnId="start_stop" />
-        )}
-        <ResetButton onClick={this.handleReset} btnId="reset" />
+      <div className="pc-grid-main">
+        <div className="pc-title">Pomodoro Clock</div>
+        <div className="pc-control-session-time">
+          <div id="session-label">Session Length</div>
+          <UpDownControl
+            btnDownId="session-decrement"
+            onClickDown={this.handleUpdateSessionMinutes(-1)}
+            btnUpId="session-increment"
+            onClickUp={this.handleUpdateSessionMinutes(1)}
+            valueId="session-length"
+            value={sessionMinutes}
+          />
+        </div>
+        <div className="pc-control-break-time">
+          <div id="break-label">Break Length</div>
+          <UpDownControl
+            btnDownId="break-decrement"
+            onClickDown={this.handleUpdateBreakMinutes(-1)}
+            btnUpId="break-increment"
+            onClickUp={this.handleUpdateBreakMinutes(1)}
+            valueId="break-length"
+            value={breakMinutes}
+          />
+        </div>
+        <div className="pc-time">
+          <div id="timer-label">{sessionActive ? 'Session' : 'Break'}</div>
+          <div id="time-left">{timeLeft}</div>
+        </div>
+        <div className="pc-start_stop">
+          {started ? (
+            <PauseButton onClick={this.toggleStart} btnId="start_stop" />
+          ) : (
+            <StartButton onClick={this.toggleStart} btnId="start_stop" />
+          )}
+          <ResetButton onClick={this.handleReset} btnId="reset" />
+        </div>
         <audio
           src="https://goo.gl/65cBl1"
           id="beep"
