@@ -174,7 +174,7 @@ class PomodoroClock extends React.Component {
     return (
       <div className="pc-grid-main">
         <div className="pc-title">Pomodoro Clock</div>
-        <div>
+        <div className="pc-session-control">
           <div id="session-label">Session Length</div>
           <UpDownControl
             btnDownId="session-decrement"
@@ -185,7 +185,7 @@ class PomodoroClock extends React.Component {
             value={sessionMinutes}
           />
         </div>
-        <div>
+        <div className="pc-break-control">
           <div id="break-label">Break Length</div>
           <UpDownControl
             btnDownId="break-decrement"

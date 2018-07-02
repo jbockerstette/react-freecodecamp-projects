@@ -31,10 +31,12 @@
   font-size: 10rem;
 }
 
-#start_stop {
+#start_stop,
+.pc-session-control {
   justify-self: right;
 }
-#reset {
+#reset,
+.pc-break-control {
   justify-self: left;
 }
 .pc-btn {
