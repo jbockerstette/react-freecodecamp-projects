@@ -29,7 +29,7 @@ const Navigation = ({ className }) => {
         </NavLink>
       ))}
       <ButtonLink
-        className="fa fa-github nav-item"
+        className="fa fa-github nav-item git-hub-link"
         href="https://github.com/jbockerstette/react-freecodecamp-projects"
         target="_blank"
       />

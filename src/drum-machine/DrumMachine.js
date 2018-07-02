@@ -60,7 +60,7 @@ const drumPads = [
 ];
 const Grid = props => <div className="dm-grid">{props.children}</div>;
 const Display = props => {
-  const text = props.children || 'Click to tap to try';
+  const text = props.children || 'Click to try';
   return (
     <div id="display" className="display">
       {text}

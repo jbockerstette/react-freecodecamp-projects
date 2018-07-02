@@ -50,7 +50,16 @@ exports[`Navigation should render correctly 1`] = `
     Pomodoro Clock
   </a>
   <a
-    className="btn fa fa-github nav-item"
+    aria-current={null}
+    className="nav-item"
+    href="/survey-form"
+    onClick={[Function]}
+    style={undefined}
+  >
+    Survey Form
+  </a>
+  <a
+    className="btn fa fa-github nav-item git-hub-link"
     href="https://github.com/jbockerstette/react-freecodecamp-projects"
     style={
       Object {

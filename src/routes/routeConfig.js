@@ -3,6 +3,7 @@ import MarkDownPreviewer from '../markdown-previewer/MarkDownPreviewer';
 import DrumMachine from '../drum-machine/DrumMachine';
 import Calculator from '../calculator/Calculator';
 import PomodoroClock from '../pomodoro-clock/PomodoroClock';
+import SurveyForm from '../survey-form/SurveyForm';
 
 const routeConfig = [
   {
@@ -29,6 +30,11 @@ const routeConfig = [
     path: '/pomodoro-clock',
     component: PomodoroClock,
     title: 'Pomodoro Clock'
+  },
+  {
+    path: '/survey-form',
+    component: SurveyForm,
+    title: 'Survey Form'
   }
 ];
 export default routeConfig;

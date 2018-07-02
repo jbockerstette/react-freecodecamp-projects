@@ -9,21 +9,19 @@
   display: grid;
   grid-column: 2;
   grid-row: 2;
-  justify-self: stretch;
-  align-self: stretch;
   grid-gap: 1rem;
+  min-width: 500px;
 }
 
 .dm-grid #drums {
   display: grid;
-  grid-template-columns: repeat(3, auto);
-  grid-template-rows: repeat(3, auto);
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   grid-gap: 0.5rem;
   padding: 1rem;
   border: 1px solid white;
   border-radius: 10px;
-  justify-self: stretch;
-  align-self: stretch;
+  justify-items: center;
 }
 
 .dm-grid #display {

@@ -1,6 +1,6 @@
 .nav-grid {
   display: grid;
-  grid-template-columns: repeat(5, 100px) 1fr;
+  grid-template-columns: repeat(6, 100px) 1fr;
   grid-template-rows: 64px;
   background: rgb(0, 95, 158);
 }
@@ -23,4 +23,8 @@
 .selected {
   font-weight: bold;
   background: rgb(0, 68, 114);
+}
+
+.git-hub-link {
+  margin: 0 0 0 auto;
 }
