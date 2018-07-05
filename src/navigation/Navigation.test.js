@@ -121,6 +121,17 @@ describe('Navigation', () => {
             'Pomodoro Clock'
           );
 
+          // now we can imperatively navigate as the test
+          Simulate.click(div.querySelector('[href="/survey-form"]'), {
+            button: 0
+          });
+        },
+        ({ div, location }) => {
+          expect(location.pathname).toEqual('/survey-form');
+          expect(div.querySelector('.nav-item.selected').text).toEqual(
+            'Survey Form'
+          );
+
           done();
         }
       ]

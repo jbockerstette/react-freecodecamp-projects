@@ -15,6 +15,7 @@
     "no-console": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": "off",
+    "jsx-a11y/label-has-for": "off",
     "react/no-multi-comp": "off",
     "react/prop-types": "off",
     "no-undef": "off",
