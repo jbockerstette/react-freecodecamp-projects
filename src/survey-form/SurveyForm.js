@@ -120,9 +120,17 @@ const RadioButton = props => {
 class SurveyForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { name: '', email: '', number: 1, radio: '', cb: {} };
+    this.state = {
+      name: '',
+      email: '',
+      number: 1,
+      radio: '',
+      cb: {},
+      textarea: ''
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleCbChange = this.handleCbChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
@@ -131,22 +139,22 @@ class SurveyForm extends Component {
   }
 
   handleCbChange(e) {
-    console.log(this.state.cb);
-    const { name, value, checked } = e.target;
+    const { name, value } = e.target;
     this.setState(({ [name]: prev }) => {
-      const nextState = { ...prev, [value]: checked };
+      const nextState = { ...prev, [value]: !prev[value] };
       return { [name]: nextState };
     });
   }
 
+  handleSubmit(e) {}
+
   render() {
-    const { name, email, number, dropdown, radio, cb } = this.state;
-    console.log(cb);
+    const { name, email, number, dropdown, radio, cb, textarea } = this.state;
     return (
       <div>
         <h1 id="title">Survey Form</h1>
         <p id="description">Let us know how we can improve freeCodeCamp</p>
-        <form action="" id="survey-form">
+        <form onSubmit={this.handleSubmit} id="survey-form">
           <div>
             <label id="name-label" htmlFor="name">
               * Name:
@@ -244,7 +252,22 @@ class SurveyForm extends Component {
                 </CheckBox>
               ))}
             </div>
+            <div>
+              <label htmlFor="textarea">Addtional Comments:</label>
+              <textarea
+                name="textarea"
+                id="textarea"
+                cols="30"
+                rows="10"
+                value={textarea}
+                placeholder="Enter any comments or suggestions..."
+                onChange={this.handleChange}
+              />
+            </div>
           </div>
+          <button id="submit" type="submit">
+            Submit
+          </button>
         </form>
       </div>
     );

@@ -34,11 +34,7 @@ describe('SurveyForm', () => {
     expect(form.find('form input#email').props().value).toBe('hello');
   });
   it('should show an html5 error if email is not formatted correctly.', () => {
-    form
-      .find('form input#email')
-      .simulate('change', { target: { name: 'email', value: 'hello' } });
-    expect(form.find('form input#email').props().value).toBe('hello');
-    // TODO: on submit try to see if the error shows up.
+    expect(form.find('form input#email').props().type).toBe('email');
   });
   it('should be required to enter an number in a field with id = "number".', () => {
     const number = form.find('form input#number');
@@ -51,23 +47,11 @@ describe('SurveyForm', () => {
     expect(form.find('form input#number').props().value).toBe(55);
   });
   it('should show an html5 error if a non number is entered.', () => {
-    form
-      .find('form input#number')
-      .simulate('change', { target: { name: 'number', value: 'hello' } });
-    expect(form.find('form input#number').props().value).not.toBe('hello');
-    // TODO: on submit try to see if the error shows up.
+    expect(form.find('form input#number').props().type).toBe('number');
   });
   it('should show an html5 error if a number outside of the accepted range is entered.', () => {
-    // TODO: I am not sure how to test to see if a number can be entered out of range.
-    form
-      .find('form input#number')
-      .simulate('change', { target: { name: 'number', value: 555 } });
-    expect(form.find('form input#number').props().value).not.toBe(555);
-    form
-      .find('form input#number')
-      .simulate('change', { target: { name: 'number', value: -1 } });
-    expect(form.find('form input#number').props().value).not.toBe(-1);
-    // TODO: on submit try to see if the error shows up.
+    expect(form.find('form input#number').props().min).not.toBe(undefined);
+    expect(form.find('form input#number').props().max).not.toBe(undefined);
   });
   it('should have labels for name, email and number.', () => {
     expect(form.find('form label#name-label').length).toBe(1);
@@ -104,9 +88,37 @@ describe('SurveyForm', () => {
     expect(form.find('form input#definitely').props().checked).toBe(false);
     expect(form.find('form input#notSure').props().checked).toBe(false);
   });
+  it('should have a series of checkboxes that all have a value attribute.', () => {
+    expect(form.find('form input[type="checkbox"]').every('[value]')).not.toBe(
+      undefined
+    );
+  });
+  it('should allow the checkboxes to be checked and unchecked.', () => {
+    form.find('form input[type="checkbox"]').forEach(cb =>
+      cb.simulate('change', {
+        target: { name: 'cb', value: cb.props().value }
+      })
+    );
+    expect(
+      form.find('form input[type="checkbox"]').every('[checked=true]')
+    ).toBe(true);
+    form.find('form input[type="checkbox"]').forEach(cb =>
+      cb.simulate('change', {
+        target: { name: 'cb', value: cb.props().value }
+      })
+    );
+    expect(
+      form.find('form input[type="checkbox"]').every('[checked=false]')
+    ).toBe(true);
+  });
+  it('should have a textarea that allows text to be entered.', () => {
+    expect(form.find('form textarea').length).toBe(1);
+    form
+      .find('form textarea')
+      .simulate('change', { target: { name: 'textarea', value: 'hello' } });
+    expect(form.find('form textarea').props().value).toBe('hello');
+  });
+  it('should have a submit button to submit all the form inputs.', () => {
+    expect(form.find('form button#submit').length).toBe(1);
+  });
 });
-
-// Inside the form element, I can select several fields from a series of checkboxes, each
-//    of which must have a value attribute.
-// Inside the form element, I am presented with a textarea at the end for additional comments.
-// Inside the form element, I am presented with a button with id = "submit" to submit all my inputs.
