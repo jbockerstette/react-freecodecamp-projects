@@ -151,12 +151,12 @@ class SurveyForm extends Component {
   render() {
     const { name, email, number, dropdown, radio, cb, textarea } = this.state;
     return (
-      <div>
+      <div className="survey-grid">
         <h1 id="title">Survey Form</h1>
         <p id="description">Let us know how we can improve freeCodeCamp</p>
         <form onSubmit={this.handleSubmit} id="survey-form">
-          <div>
-            <label id="name-label" htmlFor="name">
+          <div className="survey-row">
+            <label className="labels" id="name-label" htmlFor="name">
               * Name:
             </label>
             <input
@@ -169,8 +169,8 @@ class SurveyForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-          <div>
-            <label id="email-label" htmlFor="email">
+          <div className="survey-row">
+            <label className="labels" id="email-label" htmlFor="email">
               * Email:
             </label>
             <input
@@ -183,8 +183,8 @@ class SurveyForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-          <div>
-            <label id="number-label" htmlFor="number">
+          <div className="survey-row">
+            <label className="labels" id="number-label" htmlFor="number">
               * Age:
             </label>
             <input
@@ -199,8 +199,8 @@ class SurveyForm extends Component {
               max={130}
             />
           </div>
-          <div>
-            <label id="dropdown-label" htmlFor="dropdown">
+          <div className="survey-row">
+            <label className="labels" id="dropdown-label" htmlFor="dropdown">
               Describe your current role:
             </label>
             <select
@@ -217,8 +217,8 @@ class SurveyForm extends Component {
               <option value="other">Other</option>
             </select>
           </div>
-          <div>
-            <label id="radio-label">
+          <div className="survey-row">
+            <label className="labels" id="radio-label">
               * How likely is that you would recommend freeCodeCamp to a friend?
             </label>
             <fieldset>
@@ -235,10 +235,12 @@ class SurveyForm extends Component {
                 </RadioButton>
               ))}
             </fieldset>
-            <div>
-              <label id="cb-label">
-                {`* Things that should be improved in the future (Check all that applies)`}
-              </label>
+          </div>
+          <div className="survey-row">
+            <label className="labels" id="cb-label">
+              {`* Things that should be improved in the future (Check all that applies)`}
+            </label>
+            <fieldset>
               {checkBoxes.map(cbox => (
                 <CheckBox
                   key={cbox.value}
@@ -251,19 +253,21 @@ class SurveyForm extends Component {
                   {cbox.title}
                 </CheckBox>
               ))}
-            </div>
-            <div>
-              <label htmlFor="textarea">Addtional Comments:</label>
-              <textarea
-                name="textarea"
-                id="textarea"
-                cols="30"
-                rows="10"
-                value={textarea}
-                placeholder="Enter any comments or suggestions..."
-                onChange={this.handleChange}
-              />
-            </div>
+            </fieldset>
+          </div>
+          <div className="survey-row">
+            <label className="labels" id="label-textarea" htmlFor="textarea">
+              Addtional Comments:
+            </label>
+            <textarea
+              name="textarea"
+              id="textarea"
+              cols="30"
+              rows="10"
+              value={textarea}
+              placeholder="Enter any comments or suggestions..."
+              onChange={this.handleChange}
+            />
           </div>
           <button id="submit" type="submit">
             Submit
