@@ -123,7 +123,7 @@ class SurveyForm extends Component {
     this.state = {
       name: '',
       email: '',
-      number: 1,
+      number: '',
       radio: '',
       cb: {},
       textarea: ''
@@ -146,7 +146,9 @@ class SurveyForm extends Component {
     });
   }
 
-  handleSubmit(e) {}
+  handleSubmit(e) {
+    e.preventDefault();
+  }
 
   render() {
     const { name, email, number, dropdown, radio, cb, textarea } = this.state;
@@ -219,7 +221,7 @@ class SurveyForm extends Component {
           </div>
           <div className="survey-row">
             <label className="labels" id="radio-label">
-              * How likely is that you would recommend freeCodeCamp to a friend?
+              * How likely are you to recommend freeCodeCamp to a friend?
             </label>
             <fieldset>
               {radios.map(r => (
@@ -257,7 +259,7 @@ class SurveyForm extends Component {
           </div>
           <div className="survey-row">
             <label className="labels" id="label-textarea" htmlFor="textarea">
-              Addtional Comments:
+              Addtional comments:
             </label>
             <textarea
               name="textarea"

@@ -1,3 +1,7 @@
+.survey-grid {
+  padding: 12px;
+}
+
 .survey-grid > h1,
 p {
   text-align: center;
@@ -13,7 +17,12 @@ p {
 label,
 input,
 select {
+  font-size: 1rem;
   padding: 8px;
+}
+
+input[type='number'] {
+  padding-right: 0;
 }
 
 .survey-grid .labels {
