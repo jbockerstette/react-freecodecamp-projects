@@ -6,6 +6,7 @@
   border-radius: 5px;
   padding: 32px;
   background: whitesmoke;
+  box-shadow: 0 10px 6px -6px gray;
 }
 
 #quote-box #text {
