@@ -6,7 +6,7 @@ import Routes from './routes/Routes';
 import './App.css';
 
 const App = () => (
-  <Router>
+  <Router basename="/react-freecodecamp-projects">
     <div className="main-grid">
       <Navigation className="header" />
       <Routes className="content" />
