@@ -58,25 +58,14 @@ const drumPads = [
     url: 'https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3'
   }
 ];
-const Grid = props => <div className="dm-grid">{props.children}</div>;
+const DrumMachineWrapper = props => (
+  <div id="drum-machine">{props.children}</div>
+);
+const Drums = props => <div id="drums">{props.children}</div>;
 const Display = props => {
   const text = props.children || 'Click to try';
-  return (
-    <div id="display" className="display">
-      {text}
-    </div>
-  );
+  return <div id="display">{text}</div>;
 };
-const Drums = props => (
-  <div id="drums" className="drums">
-    {props.children}
-  </div>
-);
-const DrumMachineWrapper = props => (
-  <div id="drum-machine" className="drum-machine">
-    {props.children}
-  </div>
-);
 class DrumMachine extends React.Component {
   constructor(props) {
     super(props);
@@ -90,22 +79,20 @@ class DrumMachine extends React.Component {
 
   render() {
     return (
-      <Grid>
-        <DrumMachineWrapper>
-          <Drums>
-            {drumPads.map(drumPad => (
-              <DrumPad
-                key={drumPad.id}
-                title={drumPad.keyTrigger}
-                desc={drumPad.id}
-                audioSrc={drumPad.url}
-                onClick={this.handleDrumTap}
-              />
-            ))}
-          </Drums>
-          <Display>{this.state.desc}</Display>
-        </DrumMachineWrapper>
-      </Grid>
+      <DrumMachineWrapper>
+        <Drums>
+          {drumPads.map(drumPad => (
+            <DrumPad
+              key={drumPad.id}
+              title={drumPad.keyTrigger}
+              desc={drumPad.id}
+              audioSrc={drumPad.url}
+              onClick={this.handleDrumTap}
+            />
+          ))}
+        </Drums>
+        <Display>{this.state.desc}</Display>
+      </DrumMachineWrapper>
     );
   }
 }

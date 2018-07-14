@@ -1,19 +1,11 @@
-.dm-grid {
+#drum-machine {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  grid-template-rows: 1fr auto 1fr;
-  height: 100%;
-}
-
-.dm-grid #drum-machine {
-  display: grid;
-  grid-column: 2;
-  grid-row: 2;
+  grid-template-columns: 1fr;
   grid-gap: 1rem;
   min-width: 500px;
 }
 
-.dm-grid #drums {
+#drum-machine #drums {
   background: #f5f5f555;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -25,17 +17,13 @@
   justify-items: center;
 }
 
-.dm-grid #display {
+#drum-machine #display {
+  text-align: center;
   background: #f5f5f510;
-  display: grid;
   border: 1px solid white;
-  justify-self: stretch;
-  align-self: stretch;
-  justify-content: center;
-  align-content: center;
+  width: 100%;
   border-radius: 10px;
   height: 3rem;
-  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .drum-pad {

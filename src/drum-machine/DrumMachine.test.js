@@ -29,9 +29,6 @@ describe('DrumMachine', () => {
   });
   const wrapper = mount(<DrumMachine />);
 
-  it('should have Grid', () => {
-    expect(wrapper.find('Grid').length).toEqual(1);
-  });
   it('should have Drums', () => {
     expect(wrapper.find('Drums').length).toEqual(1);
     expect(wrapper.find('#drums').length).toEqual(1);
@@ -41,7 +38,7 @@ describe('DrumMachine', () => {
   });
   it('should set the proper title of the drum in the display', () => {
     expect(wrapper.find('Display').length).toEqual(1);
-    expect(wrapper.find('Display').text()).toEqual('Click to tap to try');
+    expect(wrapper.find('Display').text()).toEqual('Click to try');
   });
   it('should set the proper title of the drum in the display on tap', () => {
     const drum = wrapper.find('#Heater-1');
