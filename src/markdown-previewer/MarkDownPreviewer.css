@@ -1,9 +1,11 @@
 .md-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   grid-gap: 0.5rem;
   height: 100%;
+  justify-self: stretch;
+  align-self: stretch;
 }
 
 .md-grid #editor {
@@ -49,4 +51,10 @@ th {
 .md-grid #preview pre {
   background: white;
   padding: 5px 0 5px 5px;
+}
+
+@media screen and (max-width: 860px) {
+  .md-grid {
+    grid-template-columns: 1fr;
+  }
 }

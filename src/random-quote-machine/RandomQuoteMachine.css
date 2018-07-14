@@ -25,11 +25,13 @@
 #quote-box #new-quote {
   grid-column: 2 / -1;
   justify-self: end;
+  align-self: center;
 }
 
 #quote-box #tweet-quote {
   grid-column: 1 / 2;
   justify-self: start;
+  align-self: center;
 }
 
 .btn {
