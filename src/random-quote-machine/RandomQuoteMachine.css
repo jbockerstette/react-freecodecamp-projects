@@ -1,12 +1,4 @@
-.grid {
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  height: 100%;
-  transition: all 1.5s ease;
-}
-
-.grid #quote-box {
+#quote-box {
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 450px;
@@ -16,7 +8,7 @@
   background: whitesmoke;
 }
 
-.grid #quote-box #text {
+#quote-box #text {
   grid-column: 1 / -1;
   font-size: 24px;
   text-align: start;
@@ -24,18 +16,18 @@
   margin: 0;
 }
 
-.grid #quote-box #author {
+#quote-box #author {
   grid-column: 1 / -1;
   justify-self: end;
   transition: all 1.5s ease;
 }
 
-.grid #quote-box #new-quote {
+#quote-box #new-quote {
   grid-column: 2 / -1;
   justify-self: end;
 }
 
-.grid #quote-box #tweet-quote {
+#quote-box #tweet-quote {
   grid-column: 1 / 2;
   justify-self: start;
 }
@@ -49,9 +41,10 @@
   outline: none;
   cursor: pointer;
   text-decoration: none;
-  transition: all 1.5s ease;
+  opacity: 0.8;
+  transition: all 0.5s ease;
 }
 
 .btn:hover {
-  opacity: 0.9;
+  opacity: 1;
 }

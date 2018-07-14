@@ -96,27 +96,20 @@ class RandomQuoteMachine extends React.Component {
     const color = colors[colorIndex];
     const href = RandomQuoteMachine.getTwitterLink(q);
     return q ? (
-      <Grid bgColor={color}>
-        <div id="quote-box">
-          <Quote id="text" color={color} opacity={opacity} quote={q.quote} />
-          <Author
-            id="author"
-            color={color}
-            opacity={opacity}
-            author={q.author}
-          />
-          <ButtonLink
-            className="fa fa-twitter"
-            id="tweet-quote"
-            bgColor={color}
-            href={href}
-            target="_blank"
-          />
-          <Button id="new-quote" onClick={this.handleNextQuote} bgColor={color}>
-            New Quote
-          </Button>
-        </div>
-      </Grid>
+      <div id="quote-box">
+        <Quote id="text" color={color} opacity={opacity} quote={q.quote} />
+        <Author id="author" color={color} opacity={opacity} author={q.author} />
+        <ButtonLink
+          className="fa fa-twitter"
+          id="tweet-quote"
+          bgColor={color}
+          href={href}
+          target="_blank"
+        />
+        <Button id="new-quote" onClick={this.handleNextQuote} bgColor={color}>
+          New Quote
+        </Button>
+      </div>
     ) : null;
   }
 }

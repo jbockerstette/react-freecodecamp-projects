@@ -34,10 +34,6 @@ describe('RandomQuoteMachine', () => {
     mountedRandomQuoteMachine = undefined;
   });
 
-  it('should render a Grid component', () => {
-    expect(wrapper.find('Grid').length).toEqual(1);
-  });
-
   it('should render a div #quote-box', () => {
     expect(wrapper.find('#quote-box').length).toEqual(1);
   });

@@ -10,6 +10,11 @@
 }
 
 .content {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  height: 100%;
+  transition: all 1.5s ease;
   grid-column: 2;
   grid-row: 2;
 }
