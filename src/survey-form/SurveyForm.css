@@ -1,5 +1,9 @@
 .survey-grid {
+  background: whitesmoke;
+  color: black;
+  margin: 12px;
   padding: 12px;
+  border-radius: 5px;
 }
 
 .survey-grid > h1,
