@@ -1,18 +1,16 @@
 .main-grid {
   display: grid;
-  grid-template-columns: 200px auto 200px;
+  grid-template-columns: auto;
   grid-template-rows: auto 1fr;
   height: 100%;
 }
 
 .header {
-  grid-column: 2;
 }
 
 .content {
   display: grid;
   justify-content: center;
   align-content: center;
-  grid-column: 2;
   grid-row: 2;
 }

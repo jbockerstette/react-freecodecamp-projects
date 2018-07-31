@@ -7,7 +7,7 @@
   grid-gap: 2rem;
   background: tomato;
   height: 100%;
-  padding: 5rem;
+  padding: 1rem;
 }
 
 .pc-title {
@@ -20,7 +20,6 @@
   border: 1px solid white;
   border-radius: 1rem;
   padding: 1rem;
-  min-width: 30rem;
 }
 
 #timer-label {
@@ -28,7 +27,7 @@
 }
 
 #time-left {
-  font-size: 10rem;
+  font-size: 5rem;
 }
 
 #start_stop,

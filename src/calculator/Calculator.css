@@ -17,9 +17,9 @@
 
 .calc-btn {
   background: lightseagreen;
-  height: 5rem;
-  width: 7rem;
-  font-size: xx-large;
+  height: 2rem;
+  width: 3rem;
+  font-size: x-large;
   border-radius: 5px;
   border: none;
   transform: scale(1);
@@ -46,7 +46,7 @@
   justify-self: end;
   align-self: end;
   font-family: 'Courier New', Courier, monospace;
-  font-size: xx-large;
+  font-size: x-large;
 }
 #input {
   padding: 8px;

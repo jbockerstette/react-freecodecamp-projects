@@ -45,7 +45,7 @@ input[type='number'] {
   margin: 0 auto;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 768px) {
   .survey-row {
     display: grid;
     grid-template-columns: 1fr;

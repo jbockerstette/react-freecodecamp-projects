@@ -1,7 +1,7 @@
 #quote-box {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  width: 450px;
+  width: 350px;
   border: solid whitesmoke 1px;
   border-radius: 5px;
   padding: 32px;

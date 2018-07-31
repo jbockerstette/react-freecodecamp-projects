@@ -4,8 +4,14 @@ import DrumMachine from '../drum-machine/DrumMachine';
 import Calculator from '../calculator/Calculator';
 import PomodoroClock from '../pomodoro-clock/PomodoroClock';
 import SurveyForm from '../survey-form/SurveyForm';
+import Home from '../home/Home';
 
 const routeConfig = [
+  {
+    path: '/home',
+    component: Home,
+    title: 'Home'
+  },
   {
     path: '/random-quote-machine',
     component: RandomQuoteMachine,

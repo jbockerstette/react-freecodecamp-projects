@@ -11,30 +11,50 @@ export const ButtonLink = ({ className, bgColor, ...rest }) => {
     </a>
   );
 };
-const navGridClass = ['nav-grid'];
 
-const Navigation = ({ className }) => {
-  navGridClass.push(className);
-  const cls = navGridClass.join(' ');
-  return (
-    <div className={cls}>
-      {routeConfig.map(route => (
-        <NavLink
-          key={route.path}
-          className="nav-item"
-          activeClassName="selected"
-          to={route.path}
-        >
-          {route.title}
-        </NavLink>
-      ))}
-      <ButtonLink
-        className="fa fa-github fa-2x nav-item git-hub-link"
-        href="https://github.com/jbockerstette/react-freecodecamp-projects"
-        target="_blank"
-      />
-    </div>
-  );
-};
+class Navigation extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isOpen: false
+    };
+    this.toggleMenu = this.toggleMenu.bind(this);
+  }
+
+  toggleMenu() {
+    this.setState(({ isOpen }) => ({ isOpen: !isOpen }));
+  }
+
+  render() {
+    const { className } = this.props;
+    const { isOpen } = this.state;
+    const navGridClass = ['nav-grid'];
+    navGridClass.push(className);
+    navGridClass.push('responsive');
+    const cls = navGridClass.join(' ');
+    return (
+      <div className={cls}>
+        {routeConfig.map(route => (
+          <NavLink
+            key={route.path}
+            className="nav-item"
+            activeClassName="selected"
+            to={route.path}
+          >
+            {route.title}
+          </NavLink>
+        ))}
+        <ButtonLink
+          className="fa fa-github fa-2x nav-item"
+          href="https://github.com/jbockerstette/react-freecodecamp-projects"
+          target="_blank"
+        />
+        <a href="#" className="nav-item icon" onClick={this.toggleMenu}>
+          <i className="fa fa-bars fa-2x" />
+        </a>
+      </div>
+    );
+  }
+}
 
 export default Navigation;
