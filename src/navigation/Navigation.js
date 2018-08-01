@@ -30,7 +30,9 @@ class Navigation extends React.Component {
     const { isOpen } = this.state;
     const navGridClass = ['nav-grid'];
     navGridClass.push(className);
-    navGridClass.push('responsive');
+    if (isOpen) {
+      navGridClass.push('responsive');
+    }
     const cls = navGridClass.join(' ');
     return (
       <div className={cls}>

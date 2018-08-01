@@ -2,8 +2,17 @@
 
 exports[`Navigation should render correctly 1`] = `
 <div
-  className="nav-grid       my-class-name"
+  className="nav-grid my-class-name"
 >
+  <a
+    aria-current={null}
+    className="nav-item"
+    href="/home"
+    onClick={[Function]}
+    style={undefined}
+  >
+    Home
+  </a>
   <a
     aria-current={null}
     className="nav-item"
@@ -59,7 +68,7 @@ exports[`Navigation should render correctly 1`] = `
     Survey Form
   </a>
   <a
-    className="btn fa fa-github fa-2x nav-item git-hub-link"
+    className="btn fa fa-github fa-2x nav-item"
     href="https://github.com/jbockerstette/react-freecodecamp-projects"
     style={
       Object {
@@ -69,6 +78,15 @@ exports[`Navigation should render correctly 1`] = `
     target="_blank"
   >
      
+  </a>
+  <a
+    className="nav-item icon"
+    href="#"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-bars fa-2x"
+    />
   </a>
 </div>
 `;

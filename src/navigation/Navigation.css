@@ -28,19 +28,21 @@
   display: none;
   justify-self: flex-end;
   align-self: center;
-  border: 1px solid white;
 }
 
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
 @media screen and (max-width: 768px) {
   .nav-grid {
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: 100px;
   }
   .nav-grid a:not(:first-child) {
     display: none;
   }
   .nav-grid a.icon {
     display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 }
 
